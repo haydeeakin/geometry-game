@@ -1,6 +1,7 @@
 import {translation, rotation, reflection} from './transformations.js'
 
 test('translation', () => {
+    console.log("in test");
     let testCoordinate = [6,3];
     expect(translation(testCoordinate, -5, 'x')).toEqual([1,3]);
     expect(translation(testCoordinate, -5, 'y')).toEqual([1,-2]);
