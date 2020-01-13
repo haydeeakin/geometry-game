@@ -1,0 +1,8 @@
+#
+# A very simple ignore file
+#
+
+# these directories will be ignored
+
+/coverage
+/node_modules
