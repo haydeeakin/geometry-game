@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
+import Queue from "./queue"
 class MindFuel extends Component {
   constructor() {
     super();
@@ -241,8 +242,10 @@ class MindFuel extends Component {
           </button>
         </div>
         <div className="GameArea">
+          <Queue id="queue"/>
           <canvas
             className="Canvas"
+            id="canvas"
             //ref means js-getElement by ID or others
             ref={canvas => {
               this.canvas = canvas;

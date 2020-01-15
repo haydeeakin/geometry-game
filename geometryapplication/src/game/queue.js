@@ -1,7 +1,9 @@
 import React from 'react'
+import "./queue.css"
 
 class Queue extends React.Component{
     constructor(){
+        super();
         this.state = {
             queue: [],
             interface: 'translation'        //default new transformation
@@ -10,7 +12,7 @@ class Queue extends React.Component{
     render(){
         return(
             <div id="actionQueue">
-                Action Queue
+                <h1>Action Queue</h1><br/>
                 <select>
                     <option value="translation">Translation</option>
                     <option value="rotation">Rotation</option>
@@ -20,3 +22,4 @@ class Queue extends React.Component{
         )
     }
 }
+export default Queue;
