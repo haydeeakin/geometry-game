@@ -194,18 +194,19 @@ class MindFuel extends Component {
           </button>
           <button
             onClick={() => {
-              this.translate("right");
-            }}
-          >
-            RIGHT
-          </button>
-          <button
-            onClick={() => {
               this.translate("left");
             }}
           >
             LEFT
           </button>
+          <button
+            onClick={() => {
+              this.translate("right");
+            }}
+          >
+            RIGHT
+          </button>
+          
         </div>
         <div>
           <button
