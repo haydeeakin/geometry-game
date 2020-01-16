@@ -1,6 +1,8 @@
 import { translation, rotation, reflection } from "./game";
 
 test("translation", () => {
+  // test
+  
   let array = [
     [6, 9],
     [9, 12]
