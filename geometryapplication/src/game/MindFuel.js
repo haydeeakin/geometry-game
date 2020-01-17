@@ -71,54 +71,50 @@ class MindFuel extends Component {
     }
     return [pixelX, pixelY];
   };
+
   drawCanvasTemplate = () => {
     const ctx = this.canvas.getContext("2d");
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = "red";
+    ctx.font = "15px Arial";
     let lineWidth = 0.7;
-    //horiz
-    // let coordinate1;
+    
+    // draw horizontal line 
     for (let i = 0; i <= this.canvasHeight; i += this.widthPerSquare) {
       ctx.lineWidth = lineWidth;
       if (i === this.canvasHeight / 2) {
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 3;
       }
       ctx.beginPath();
       ctx.moveTo(0, i);
       ctx.lineTo(this.canvasWidth, i);
-      // let coordinate1=this.translatePointToPixel([1,0]);
-      // ctx.fillText(1, coordinate1[0], coordinate1[1]);
-      // coordinate1=this.translatePointToPixel([2,0]);
-      // ctx.fillText(2, coordinate1[0], coordinate1[1]);
-      let coordinate1;
-      for (let u=-10; u<=10;u++){
-        coordinate1 = this.translatePointToPixel([u,0]);
-        ctx.fillText(u, coordinate1[0], coordinate1[1]);
-      //   console.log(u);
-      }
       ctx.stroke();
-
+      
+      // add x axis label
+      let labelX;
+      for (let u=-10; u<=10;u++){
+        labelX = this.translatePointToPixel([u,-0.3]);
+        ctx.fillText(u, labelX[0], labelX[1]);
+      }
     }
 
-    //vertical
+    // draw vertical line
     for (let i = 0; i <= this.canvasWidth; i += this.heightPerSquare) {
       ctx.lineWidth = lineWidth;
       if (i === this.canvasWidth / 2) {
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 3;
       }
       ctx.beginPath();
       ctx.moveTo(i, 0);
       ctx.lineTo(i, this.canvasHeight);
       ctx.stroke();
-    }
-  };
 
-  drawHorizontalLabel = (ctxinput) => {
-    let coordinate;
-    for (let i=-10; i<=10;i++){
-      coordinate = this.translatePointToPixel([i,0]);
-      ctxinput.fillText(i, coordinate[i], coordinate[0]);
+      // add y axis label
+      let labelY;
+      for (let u=-10; u<=10 ;u++){
+        labelY = this.translatePointToPixel([u,0]);
+        ctx.fillText(u, labelY[1], labelY[0]);
+      }
     }
-   
   };
 
   componentDidMount = () => {
