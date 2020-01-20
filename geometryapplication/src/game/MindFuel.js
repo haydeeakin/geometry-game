@@ -4,9 +4,9 @@ import Queue from "./queue"
 class MindFuel extends Component {
   constructor() {
     super();
-    this.canvasHeight = 800;
-    this.canvasWidth = 800;
-    this.squareCount = 20;
+    this.canvasHeight = 880;
+    this.canvasWidth = 880;
+    this.squareCount = 22;
     this.widthPerSquare = this.canvasWidth / this.squareCount;
     this.heightPerSquare = this.canvasHeight / this.squareCount;
     this.pointRadius = 8;
@@ -112,6 +112,9 @@ class MindFuel extends Component {
       let labelY;
       for (let u=-10; u<=10 ;u++){
         labelY = this.translatePointToPixel([u,0]);
+        if (u===0) {
+          u=""
+        }
         ctx.fillText(u, labelY[1], labelY[0]);
       }
     }
