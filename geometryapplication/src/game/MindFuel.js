@@ -93,7 +93,13 @@ class MindFuel extends Component {
       let labelX;
       for (let u=-10; u<=10;u++){
         labelX = this.translatePointToPixel([u,-0.3]);
+        if (u===0) {
+          u=""
+        }
         ctx.fillText(u, labelX[0], labelX[1]);
+        
+        // ctx.textAlign="right";
+      
       }
     }
 
@@ -102,6 +108,7 @@ class MindFuel extends Component {
       ctx.lineWidth = lineWidth;
       if (i === this.canvasWidth / 2) {
         ctx.lineWidth = 3;
+        
       }
       ctx.beginPath();
       ctx.moveTo(i, 0);
@@ -112,10 +119,9 @@ class MindFuel extends Component {
       let labelY;
       for (let u=-10; u<=10 ;u++){
         labelY = this.translatePointToPixel([u,0]);
-        if (u===0) {
-          u=""
-        }
-        ctx.fillText(u, labelY[1], labelY[0]);
+     
+        ctx.fillText((u*-1), labelY[1], labelY[0]);
+        
       }
     }
   };
@@ -185,10 +191,10 @@ class MindFuel extends Component {
   pointsInbound = coordinate => {
     for (let b of coordinate) {
       let pixelB = this.translatePointToPixel(b);
-      if (pixelB[0] > this.canvasWidth || pixelB[0] < 0) {
+      if (pixelB[0] > this.canvasWidth-40 || pixelB[0] < 40) {
         return false;
       }
-      if (pixelB[1] > this.canvasHeight || pixelB[1] < 0) {
+      if (pixelB[1] > this.canvasHeight-40 || pixelB[1] < 40) {
         return false;
       }
     }
