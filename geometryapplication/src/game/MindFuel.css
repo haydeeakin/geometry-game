@@ -1,6 +1,6 @@
 .buttons {
     height: 50px;
-    width: 57px;
+    width: 56px;
 }
 .btnDown {
     background: url(./Images/arrow-down.svg);
@@ -19,4 +19,10 @@
 }
 .btnClock {
     background: url(./Images/rotate-cw.svg);
+}
+.btnReflecX {
+    background: url(./Images/reflection-x.svg);
+}
+.btnReflecY {
+    background: url(./Images/reflection-y.svg) no-repeat;
 }
