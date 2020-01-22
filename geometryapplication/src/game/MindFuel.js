@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
-import Queue from "./queue"
+import Queue from "./queue";
+
+
 class MindFuel extends Component {
   constructor() {
     super();
@@ -107,9 +109,11 @@ class MindFuel extends Component {
     for (let i = 0; i <= this.canvasWidth; i += this.heightPerSquare) {
       ctx.lineWidth = lineWidth;
       if (i === this.canvasWidth / 2) {
+      
         ctx.lineWidth = 3;
         
       }
+
       ctx.beginPath();
       ctx.moveTo(i, 0);
       ctx.lineTo(i, this.canvasHeight);
@@ -268,6 +272,7 @@ class MindFuel extends Component {
             REFLECTION Y
           </button>
         </div>
+        
         <div className="GameArea">
           <Queue id="queue"/>
           <canvas
@@ -281,6 +286,7 @@ class MindFuel extends Component {
             height={this.canvasHeight}
           />
         </div>
+        
       </div>
     );
   }
