@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
 import Queue from "./queue";
-
+import "./MindFuel.css";
 
 class MindFuel extends Component {
   constructor() {
@@ -210,50 +210,91 @@ class MindFuel extends Component {
       <div>
         <h2>Welcome to Transformation Game</h2>
         <div>
-          <button
+        <button className="buttons btnUp"
+            onClick={() => {
+              this.translate("up");
+            }}
+          >
+            
+          </button>
+          {/* <button
             onClick={() => {
               this.translate("up");
             }}
           >
             UP
-          </button>
-          <button
+          </button> */}
+          {/* <button 
             onClick={() => {
               this.translate("down");
             }}
           >
             DOWN
+          </button> */}
+          <button className="buttons btnDown"
+            onClick={() => {
+              this.translate("down");
+            }}
+          >
+          
           </button>
-          <button
+          {/* <button
             onClick={() => {
               this.translate("left");
             }}
           >
             LEFT
+          </button> */}
+          <button className="buttons btnLeft"
+            onClick={() => {
+              this.translate("left");
+            }}
+          >
+         
           </button>
-          <button
+          <button className="buttons btnRight"
+            onClick={() => {
+              this.translate("right");
+            }}
+          >
+           
+          </button>
+          {/* <button
             onClick={() => {
               this.translate("right");
             }}
           >
             RIGHT
-          </button>
+          </button> */}
           
-        </div>
-        <div>
-          <button
+        {/* </div> */}
+        {/* <div> */}
+          {/* <button
             onClick={() => {
               this.rotation("clockwise");
             }}
           >
             COUNTER CLOCKWISE
+          </button> */}
+           <button className="buttons btnCounterClock"
+            onClick={() => {
+              this.rotation("clockwise");
+            }}
+          >
+    
           </button>
-          <button
+          {/* <button
             onClick={() => {
               this.rotation("counterClockwise");
             }}
           >
             CLOCKWISE
+          </button> */}
+          <button className="buttons btnClock"
+            onClick={() => {
+              this.rotation("counterClockwise");
+            }}
+          >
           </button>
         </div>
         <div>
