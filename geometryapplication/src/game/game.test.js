@@ -1,8 +1,6 @@
 import { translation, rotation, reflection } from "./game";
 
 test("translation", () => {
-  // test
-  
   let array = [
     [6, 9],
     [9, 12]
@@ -11,7 +9,10 @@ test("translation", () => {
     [1, 9],
     [4, 12]
   ]);
-  expect(translation(array, 17, "y")).toEqual([[1,26],[4,29]])
+  expect(translation(array, 17, "y")).toEqual([
+    [1, 26],
+    [4, 29]
+  ]);
 });
 
 test("rotation", () => {
