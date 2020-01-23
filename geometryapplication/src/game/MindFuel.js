@@ -27,7 +27,7 @@ class MindFuel extends Component {
     this.drawCanvasTemplate();
     ctx.fillStyle = "purple";
     ctx.strokeStyle="teal";
-    //draw triangle point
+    // draw triangle point
     for (let b of this.state.points) {
       let pixelPoint = this.translatePointToPixel(b);
       ctx.beginPath();
@@ -41,30 +41,31 @@ class MindFuel extends Component {
       );
       ctx.fill();
     }
-
+    //ctx.font = "30px Courier";
     //draw line (triangle)
-    
     let pixelPoint0 = this.translatePointToPixel(this.state.points[0]);
     let pixelPoint1 = this.translatePointToPixel(this.state.points[1]);
     let pixelPoint2 = this.translatePointToPixel(this.state.points[2]);
     ctx.lineWidth = 5;
-   
+    
     ctx.beginPath();
     
     ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
     ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
     ctx.stroke();
+    //ctx.strokeText("C",pixelPoint0[0]-15, pixelPoint0[1])
 
     ctx.beginPath();
     ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
     ctx.lineTo(pixelPoint2[0], pixelPoint2[1]);
     ctx.stroke();
+    //ctx.strokeText("B",pixelPoint2[0]+15, pixelPoint2[1])
 
     ctx.beginPath();
     ctx.moveTo(pixelPoint2[0], pixelPoint2[1]);
     ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
     ctx.stroke();
-   
+    //ctx.strokeText("A",pixelPoint1[0]+15, pixelPoint1[1])
     
   };
 
@@ -84,7 +85,7 @@ class MindFuel extends Component {
     const ctx = this.canvas.getContext("2d");
     ctx.fillStyle = "red";
     ctx.font = "17px Arial";
-    let lineWidth = 1;
+    let lineWidth = 0.8;
     ctx.textAlign="center";
     ctx.strokeStyle="teal";
     // draw horizontal line 
@@ -211,7 +212,7 @@ class MindFuel extends Component {
   render() {
     return (
       <div>
-        <div style={{height: 100, backgroundColor: "teal"}}>
+        <div style={{height: 80, backgroundColor: "teal"}}>
           <h2 style={{color:"white", fontSize:50}}>Welcome to Transformation Game</h2>
         </div>
         <div>
