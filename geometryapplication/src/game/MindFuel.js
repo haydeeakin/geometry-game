@@ -25,7 +25,8 @@ class MindFuel extends Component {
     const ctx = this.canvas.getContext("2d");
     ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.drawCanvasTemplate();
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "purple";
+    ctx.strokeStyle="teal";
     //draw triangle point
     for (let b of this.state.points) {
       let pixelPoint = this.translatePointToPixel(b);
@@ -42,11 +43,14 @@ class MindFuel extends Component {
     }
 
     //draw line (triangle)
+    
     let pixelPoint0 = this.translatePointToPixel(this.state.points[0]);
     let pixelPoint1 = this.translatePointToPixel(this.state.points[1]);
     let pixelPoint2 = this.translatePointToPixel(this.state.points[2]);
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 5;
+   
     ctx.beginPath();
+    
     ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
     ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
     ctx.stroke();
@@ -60,6 +64,8 @@ class MindFuel extends Component {
     ctx.moveTo(pixelPoint2[0], pixelPoint2[1]);
     ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
     ctx.stroke();
+   
+    
   };
 
   translatePointToPixel = point => {
@@ -78,14 +84,15 @@ class MindFuel extends Component {
     const ctx = this.canvas.getContext("2d");
     ctx.fillStyle = "red";
     ctx.font = "17px Arial";
-    let lineWidth = 0.7;
+    let lineWidth = 1;
     ctx.textAlign="center";
+    ctx.strokeStyle="teal";
     // draw horizontal line 
     for (let i = 40; i <= this.canvasHeight; i += this.widthPerSquare) {
       ctx.lineWidth = lineWidth;
       
       if (i === this.canvasHeight / 2) {
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 5;
         
       }
      
@@ -108,7 +115,7 @@ class MindFuel extends Component {
     for (let i = 40; i <= this.canvasWidth-10; i += this.heightPerSquare) {
       ctx.lineWidth = lineWidth;
       if (i === this.canvasWidth / 2) {
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 5;
        
       }
        
