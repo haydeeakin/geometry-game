@@ -26,7 +26,7 @@ class MindFuel extends Component {
     ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.drawCanvasTemplate();
     ctx.fillStyle = "red";
-    //draw point
+    //draw triangle point
     for (let b of this.state.points) {
       let pixelPoint = this.translatePointToPixel(b);
       ctx.beginPath();
@@ -41,7 +41,7 @@ class MindFuel extends Component {
       ctx.fill();
     }
 
-    //draw line
+    //draw line (triangle)
     let pixelPoint0 = this.translatePointToPixel(this.state.points[0]);
     let pixelPoint1 = this.translatePointToPixel(this.state.points[1]);
     let pixelPoint2 = this.translatePointToPixel(this.state.points[2]);
@@ -77,55 +77,51 @@ class MindFuel extends Component {
   drawCanvasTemplate = () => {
     const ctx = this.canvas.getContext("2d");
     ctx.fillStyle = "red";
-    ctx.font = "15px Arial";
+    ctx.font = "17px Arial";
     let lineWidth = 0.7;
-    
+    ctx.textAlign="center";
     // draw horizontal line 
-    for (let i = 0; i <= this.canvasHeight; i += this.widthPerSquare) {
+    for (let i = 40; i <= this.canvasHeight; i += this.widthPerSquare) {
       ctx.lineWidth = lineWidth;
+      
       if (i === this.canvasHeight / 2) {
         ctx.lineWidth = 3;
+        
       }
+     
       ctx.beginPath();
-      ctx.moveTo(0, i);
-      ctx.lineTo(this.canvasWidth, i);
+      ctx.moveTo(38, i);
+      ctx.lineTo(this.canvasWidth-40, i);
       ctx.stroke();
-      
+   
       // add x axis label
       let labelX;
       for (let u=-10; u<=10;u++){
-        labelX = this.translatePointToPixel([u,-0.3]);
-        if (u===0) {
-          u=""
-        }
+        labelX = this.translatePointToPixel([u,-0.5]);
+        if (u===0) {u=""}
         ctx.fillText(u, labelX[0], labelX[1]);
-        
-        // ctx.textAlign="right";
-      
+        // ctx.textAlign="right"; 
       }
     }
 
     // draw vertical line
-    for (let i = 0; i <= this.canvasWidth; i += this.heightPerSquare) {
+    for (let i = 40; i <= this.canvasWidth-10; i += this.heightPerSquare) {
       ctx.lineWidth = lineWidth;
       if (i === this.canvasWidth / 2) {
-      
         ctx.lineWidth = 3;
-        
+       
       }
-
-      ctx.beginPath();
-      ctx.moveTo(i, 0);
-      ctx.lineTo(i, this.canvasHeight);
-      ctx.stroke();
+       
+        ctx.beginPath();
+        ctx.moveTo(i, 38);
+        ctx.lineTo(i, this.canvasHeight-40);
+        ctx.stroke();
 
       // add y axis label
       let labelY;
       for (let u=-10; u<=10 ;u++){
-        labelY = this.translatePointToPixel([u,0]);
-     
-        ctx.fillText((u*-1), labelY[1], labelY[0]);
-        
+        labelY = this.translatePointToPixel([u,0.4]);
+        ctx.fillText((u*-1), labelY[1], labelY[0]); 
       }
     }
   };
