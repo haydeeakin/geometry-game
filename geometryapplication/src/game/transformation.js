@@ -30,14 +30,14 @@ class Transformation extends React.Component {
         return (
             <div id="transformation">
                 <h1 style={{ color: "purple" }}>Transformation Selector</h1><br />
-                <select onChange={this.singletoMultiple}>
+                <select className="transformSelector" onChange={this.singletoMultiple}>
                         <option value="single">Single Move(Default)</option>
                         <option value="multiple">Multiple Moves</option>
                 </select>
                 <br></br><br></br>
                 {/* <button className="buttons btnUp">
                 </button> */}
-                <input type="submit" className="buttons btnUp" value="Move Up"></input>
+                <input type="button" className="buttons btnUp" value=" "></input>
                 <input hidden={this.state.singleMove} Min="-10" max="10" type="number" className="numInput" name="numInput" value={this.state.numInput} />
                 <br></br>
                 {/* <button className="buttons btnDown"
@@ -46,7 +46,7 @@ class Transformation extends React.Component {
                     // }}
                 >
                 </button> */}
-                <input type="submit" className="buttons btnDown" value="Move Down"></input>
+                <input type="button" className="buttons btnDown" value=" "></input>
                 <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
                 <br></br>
                 {/* <button className="buttons btnLeft"
@@ -55,7 +55,7 @@ class Transformation extends React.Component {
                     // }}
                 >
                 </button> */}
-                <input type="submit" className="buttons btnLeft" value="Move Left"></input>
+                <input type="button" className="buttons btnLeft" value=" "></input>
                 <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
                 <br></br>
                 {/* <button className="buttons btnRight"
@@ -64,7 +64,7 @@ class Transformation extends React.Component {
                     // }}
                 >
                 </button> */}
-                <input type="submit" className="buttons btnRight" value="Move Right"></input>
+                <input type="button" className="buttons btnRight" value=" "></input>
                 <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
                 <br></br>
                 {/* <button className="buttons btnCounterClock"
@@ -73,7 +73,7 @@ class Transformation extends React.Component {
                     // }}
                 >
                 </button> */}
-                <input type="submit" className="buttons btnCounterClock" value="Rotate CounterClock"></input>
+                <input type="button" className="buttons btnCounterClock" value=" " ></input>
                 <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
                 <br></br>
                 {/* <button className="buttons btnClock"
@@ -82,7 +82,7 @@ class Transformation extends React.Component {
                     // }}
                 >
                 </button> */}
-                <input type="submit" className="buttons btnClock" value="Rotate Clock"></input>
+                <input type="button" className="buttons btnClock" value=" "></input>
                 <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
                 <br></br>
                 {/* <button className="buttons btnReflecX"
@@ -91,7 +91,7 @@ class Transformation extends React.Component {
                     // }}
                 >
                 </button> */}
-                <input type="submit" className="buttons btnReflecX" value="ReflecX"></input>
+                <input type="button" className="buttons btnReflecX" value=" "></input>
                 <input hidden={this.state.singleMove} type="text" className="numInput" name="numInput" defaultValue="Reflection-X" />
                 <br></br>
                 {/* <button className="buttons btnReflecY"
@@ -100,7 +100,7 @@ class Transformation extends React.Component {
                     // }}
                 >
                 </button>   */}
-                <input type="submit" className="buttons btnReflecY" value="ReflecY"></input>
+                <input type="button" className="buttons btnReflecY" value=" "></input>
                 <input hidden={this.state.singleMove}type="text" className="numInput" name="numInput" defaultValue="Reflection-Y" />
                 <br></br>
             </div >

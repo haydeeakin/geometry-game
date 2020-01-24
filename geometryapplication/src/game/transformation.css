@@ -2,7 +2,7 @@
     height: 50px;
     width: 56px;
     margin-bottom: 30px;
-   
+  
 }
 .btnDown {
     background: url(./Images/arrow-down.svg);
@@ -15,6 +15,7 @@
 }
 .btnRight {
     background: url(./Images/arrow-right.svg);
+    
 }
 .btnCounterClock {
     background: url(./Images/rotate-ccw.svg);
@@ -35,4 +36,11 @@
     margin-left: 35px;
     font-size: 20px;
     
+}
+.transformSelector {
+    height: 5%;
+    font-size: 18px;
+    font-weight: bold;
+    color: blue;
+    background-color: lightgray;
 }
