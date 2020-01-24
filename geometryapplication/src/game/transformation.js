@@ -29,7 +29,7 @@ class Transformation extends React.Component {
     render() {
         return (
             <div id="transformation">
-                <h1 style={{ color: "purple" }}>Transformation Selector</h1><br />
+                <h1 style={{ color: "purple"}}>Transformation Selector</h1><br />
                 <select className="transformSelector" onChange={this.singletoMultiple}>
                         <option value="single">Single Move(Default)</option>
                         <option value="multiple">Multiple Moves</option>
@@ -38,7 +38,7 @@ class Transformation extends React.Component {
                 {/* <button className="buttons btnUp">
                 </button> */}
                 <input type="button" className="buttons btnUp" value=" "></input>
-                <input hidden={this.state.singleMove} Min="-10" max="10" type="number" className="numInput" name="numInput" value={this.state.numInput} />
+                <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
                 <br></br>
                 {/* <button className="buttons btnDown"
                     // onClick={() => {
@@ -74,7 +74,12 @@ class Transformation extends React.Component {
                 >
                 </button> */}
                 <input type="button" className="buttons btnCounterClock" value=" " ></input>
-                <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
+                <select hidden={this.state.singleMove} className="degrees">
+                        <option value="90">90&deg;</option>
+                        <option value="180">180&deg;</option>
+                        <option value="270">270&deg;</option>
+                </select>
+                {/* <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} /> */}
                 <br></br>
                 {/* <button className="buttons btnClock"
                     // onClick={() => {
@@ -83,7 +88,12 @@ class Transformation extends React.Component {
                 >
                 </button> */}
                 <input type="button" className="buttons btnClock" value=" "></input>
-                <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} />
+                <select hidden={this.state.singleMove} className="degrees">
+                        <option value="90">90&deg;</option>
+                        <option value="180">180&deg;</option>
+                        <option value="270">270&deg;</option>
+                </select>
+                {/* <input hidden={this.state.singleMove} type="number" className="numInput" name="numInput" value={this.state.numInput} /> */}
                 <br></br>
                 {/* <button className="buttons btnReflecX"
                     // onClick={() => {

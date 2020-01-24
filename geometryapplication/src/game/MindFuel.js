@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
-import Queue from "./queue";
+//import Queue from "./queue";
+//import Transformation from "./transformation";
+import "./transformation.css"
+import Action from "./actionQueue";
 import "./MindFuel.css";
 
 class MindFuel extends Component {
@@ -18,7 +21,8 @@ class MindFuel extends Component {
       [2, 2],
       [4, 2],
       [4, 5]
-    ]
+    ],
+  singleMove: true
   };
 
   drawPoints = () => {
@@ -26,7 +30,7 @@ class MindFuel extends Component {
     ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.drawCanvasTemplate();
     ctx.fillStyle = "purple";
-    ctx.strokeStyle="teal";
+    ctx.strokeStyle = "teal";
     // draw triangle point
     for (let b of this.state.points) {
       let pixelPoint = this.translatePointToPixel(b);
@@ -47,9 +51,9 @@ class MindFuel extends Component {
     let pixelPoint1 = this.translatePointToPixel(this.state.points[1]);
     let pixelPoint2 = this.translatePointToPixel(this.state.points[2]);
     ctx.lineWidth = 5;
-    
+
     ctx.beginPath();
-    
+
     ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
     ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
     ctx.stroke();
@@ -66,7 +70,7 @@ class MindFuel extends Component {
     ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
     ctx.stroke();
     //ctx.strokeText("A",pixelPoint1[0]+15, pixelPoint1[1])
-    
+
   };
 
   translatePointToPixel = point => {
@@ -86,50 +90,50 @@ class MindFuel extends Component {
     ctx.fillStyle = "red";
     ctx.font = "17px Arial";
     let lineWidth = 0.8;
-    ctx.textAlign="center";
-    ctx.strokeStyle="teal";
+    ctx.textAlign = "center";
+    ctx.strokeStyle = "teal";
     // draw horizontal line 
     for (let i = 40; i <= this.canvasHeight; i += this.widthPerSquare) {
       ctx.lineWidth = lineWidth;
-      
+
       if (i === this.canvasHeight / 2) {
         ctx.lineWidth = 5;
-        
+
       }
-     
+
       ctx.beginPath();
       ctx.moveTo(38, i);
-      ctx.lineTo(this.canvasWidth-40, i);
+      ctx.lineTo(this.canvasWidth - 40, i);
       ctx.stroke();
-   
+
       // add x axis label
       let labelX;
-      for (let u=-10; u<=10;u++){
-        labelX = this.translatePointToPixel([u,-0.5]);
-        if (u===0) {u=""}
+      for (let u = -10; u <= 10; u++) {
+        labelX = this.translatePointToPixel([u, -0.5]);
+        if (u === 0) { u = "" }
         ctx.fillText(u, labelX[0], labelX[1]);
         // ctx.textAlign="right"; 
       }
     }
 
     // draw vertical line
-    for (let i = 40; i <= this.canvasWidth-10; i += this.heightPerSquare) {
+    for (let i = 40; i <= this.canvasWidth - 10; i += this.heightPerSquare) {
       ctx.lineWidth = lineWidth;
       if (i === this.canvasWidth / 2) {
         ctx.lineWidth = 5;
-       
+
       }
-       
-        ctx.beginPath();
-        ctx.moveTo(i, 38);
-        ctx.lineTo(i, this.canvasHeight-40);
-        ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(i, 38);
+      ctx.lineTo(i, this.canvasHeight - 40);
+      ctx.stroke();
 
       // add y axis label
       let labelY;
-      for (let u=-10; u<=10 ;u++){
-        labelY = this.translatePointToPixel([u,0.4]);
-        ctx.fillText((u*-1), labelY[1], labelY[0]); 
+      for (let u = -10; u <= 10; u++) {
+        labelY = this.translatePointToPixel([u, 0.4]);
+        ctx.fillText((u * -1), labelY[1], labelY[0]);
       }
     }
   };
@@ -166,10 +170,10 @@ class MindFuel extends Component {
   rotation = type => {
     let copy = JSON.parse(JSON.stringify(this.state));
     switch (type) {
-      case "clockwise":
+      case "counterClockwise":
         rotation(copy.points, 90, [0, 0]);
         break;
-      case "counterClockwise":
+      case "clockwise":
         rotation(copy.points, -90, [0, 0]);
         break;
       default:
@@ -199,76 +203,114 @@ class MindFuel extends Component {
   pointsInbound = coordinate => {
     for (let b of coordinate) {
       let pixelB = this.translatePointToPixel(b);
-      if (pixelB[0] > this.canvasWidth-40 || pixelB[0] < 40) {
+      if (pixelB[0] > this.canvasWidth - 40 || pixelB[0] < 40) {
         return false;
       }
-      if (pixelB[1] > this.canvasHeight-40 || pixelB[1] < 40) {
+      if (pixelB[1] > this.canvasHeight - 40 || pixelB[1] < 40) {
         return false;
       }
     }
     return true;
   };
+  singletoMultiple = (event) => {
+    if (event.target.value === "multiple") {
+      this.setState({
+        singleMove: false
+      })
+    } else {
+      this.setState({
+        singleMove: true
+      })
+    }
 
+  }
+  handleKeyDown = (event) => {
+    event.preventDefault();
+    return false;
+  }
   render() {
     return (
       <div>
-        <div style={{height: 80, backgroundColor: "teal"}}>
-          <h2 style={{color:"white", fontSize:50}}>Welcome to Transformation Game</h2>
+        <div style={{ height: 80, backgroundColor: "teal" }}>
+          <h2 style={{ color: "white", fontSize: 50, marginTop: 0 }}>Welcome to Transformation Game</h2>
         </div>
         <div>
-        <button className="buttons btnUp"
+          {/* <button className="buttons btnUp"
             onClick={() => {
               this.translate("up");
             }}
           >
-          </button>
-          <button className="buttons btnDown"
-            onClick={() => {
-              this.translate("down");
-            }}
-          > 
-          </button>
-          <button className="buttons btnLeft"
-            onClick={() => {
-              this.translate("left");
-            }}
-          >
-          </button>
-          <button className="buttons btnRight"
-            onClick={() => {
-              this.translate("right");
-            }}
-          >
-          </button>
-           <button className="buttons btnCounterClock"
-            onClick={() => {
-              this.rotation("clockwise");
-            }}
-          >
-          </button>
-          <button className="buttons btnClock"
-            onClick={() => {
-              this.rotation("counterClockwise");
-            }}
-          >
-          </button>
-           <button className="buttons btnReflecX"
-            onClick={() => {
-              this.reflection("x");
-            }}
-          >
-          </button>
-          <button className="buttons btnReflecY"
-            onClick={() => {
-              this.reflection("y");
-            }}
-          >
-           
-          </button>
+          </button> */}
         </div>
-        
+
         <div className="GameArea">
-          <Queue id="queue"/>
+          {/* <Queue id="queue"/> */}
+          {/* <Transformation singleMove={true}/> */}
+          <div id="transformation">
+            <h1 style={{ color: "purple" }}>Transformation Selector</h1><br />
+            <select className="transformSelector" onChange={this.singletoMultiple}>
+              <option value="single">Single Move(Default)</option>
+              <option value="multiple">Multiple Moves</option>
+            </select>
+            <br></br><br></br>
+
+            <input type="button" className="buttons btnUp" value=" " onClick={() => {
+              this.translate("up");
+            }}></input>
+            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="upnum" value={this.state.upnum} />
+            <br></br>
+
+            <input type="button" className="buttons btnDown" value=" " onClick={() => {
+              this.translate("down");
+            }}></input>
+            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="downnum" value={this.state.downnum} />
+            <br></br>
+
+            <input type="button" className="buttons btnLeft" value=" " onClick={() => {
+              this.translate("left");
+            }}></input>
+            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="leftnum" value={this.state.leftnum} />
+            <br></br>
+
+            <input type="button" className="buttons btnRight" value=" " onClick={() => {
+              this.translate("right");
+            }}></input>
+            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="rightnum" value={this.state.rightnum} />
+            <br></br>
+
+            <input type="button" className="buttons btnCounterClock" value=" " onClick={() => {
+              this.rotation("counterClockwise");
+            }}></input>
+            <select hidden={this.state.singleMove} className="degrees">
+              <option value="90">90&deg;</option>
+              <option value="180">180&deg;</option>
+              <option value="270">270&deg;</option>
+            </select>
+
+            <br></br>
+            <input type="button" className="buttons btnClock" value=" " onClick={() => {
+              this.rotation("clockwise");
+            }}></input>
+            <select hidden={this.state.singleMove} className="degrees">
+              <option value="90">90&deg;</option>
+              <option value="180">180&deg;</option>
+              <option value="270">270&deg;</option>
+            </select>
+
+            <br></br>
+
+            <input type="button" className="buttons btnReflecX" value=" " onClick={() => {
+              this.reflection("x");
+            }}></input>
+            <input disabled hidden={this.state.singleMove} type="text" className="numInput" name="numInput" defaultValue="Reflection-X" />
+            <br></br>
+
+            <input type="button" className="buttons btnReflecY" value=" " onClick={() => {
+              this.reflection("y");
+            }}></input>
+            <input disabled hidden={this.state.singleMove} type="text" className="numInput" name="numInput" defaultValue="Reflection-Y" />
+            <br></br>
+          </div >
           <canvas
             className="Canvas"
             id="canvas"
@@ -279,8 +321,9 @@ class MindFuel extends Component {
             width={this.canvasWidth}
             height={this.canvasHeight}
           />
+          <Action />
         </div>
-        
+
       </div>
     );
   }
