@@ -22,7 +22,8 @@ class MindFuel extends Component {
       [4, 2],
       [4, 5]
     ],
-  singleMove: true
+    singleMove: true,
+    upnum: "", downnum: "", rightnum: "", leftnum: "", degreeCounter: 0, degreeClock: 0
   };
 
   drawPoints = () => {
@@ -148,16 +149,36 @@ class MindFuel extends Component {
     let copy = JSON.parse(JSON.stringify(this.state));
     switch (direction) {
       case "up":
-        translation(copy.points, 1, "y");
+        if (this.state.singleMove === true) {
+          translation(copy.points, 1, "y");
+        }
+        else {
+          translation(copy.points, Number(this.state.upnum), "y");
+        }
         break;
       case "down":
-        translation(copy.points, -1, "y");
+        if (this.state.singleMove === true) {
+          translation(copy.points, -1, "y");
+        }
+        else {
+          translation(copy.points, Number(this.state.downnum) * -1, "y");
+        }
         break;
       case "right":
-        translation(copy.points, 1, "x");
+        if (this.state.singleMove === true) {
+          translation(copy.points, 1, "x");
+        }
+        else {
+          translation(copy.points, Number(this.state.rightnum), "x");
+        }
         break;
       case "left":
-        translation(copy.points, -1, "x");
+        if (this.state.singleMove === true) {
+          translation(copy.points, -1, "x");
+        }
+        else {
+          translation(copy.points, Number(this.state.leftnum) * -1, "x");
+        }
         break;
       default:
         break;
@@ -171,10 +192,20 @@ class MindFuel extends Component {
     let copy = JSON.parse(JSON.stringify(this.state));
     switch (type) {
       case "counterClockwise":
-        rotation(copy.points, 90, [0, 0]);
+        if (this.state.singleMove === true) {
+          rotation(copy.points, 90, [0, 0]);
+        }
+        else {
+          rotation(copy.points, this.state.degreeCounter, [0, 0]);
+        }
         break;
       case "clockwise":
-        rotation(copy.points, -90, [0, 0]);
+        if (this.state.singleMove === true) {
+          rotation(copy.points, -90, [0, 0]);
+        }
+        else {
+          rotation(copy.points, this.state.degreeClock * -1, [0, 0]);
+        }
         break;
       default:
         break;
@@ -219,14 +250,36 @@ class MindFuel extends Component {
       })
     } else {
       this.setState({
-        singleMove: true
+        singleMove: true,
+        upnum: "",
+        downnum: "",
+        leftnum: "",
+        rightnum: "",
+        degreeClock: "",
+        degreeCounter: ""
       })
     }
 
   }
-  handleKeyDown = (event) => {
+  handleKeyDown = (event) => { // to prevent user enter a number
     event.preventDefault();
     return false;
+  }
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value,
+
+    })
+  }
+  handleRotationCounter = (event) => {
+    this.setState({
+      degreeCounter: event.target.value
+    })
+  }
+  handleRotationClock = (event) => {
+    this.setState({
+      degreeClock: event.target.value
+    })
   }
   render() {
     return (
@@ -257,31 +310,32 @@ class MindFuel extends Component {
             <input type="button" className="buttons btnUp" value=" " onClick={() => {
               this.translate("up");
             }}></input>
-            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="upnum" value={this.state.upnum} />
+            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="upnum" value={this.state.upnum} />
             <br></br>
 
             <input type="button" className="buttons btnDown" value=" " onClick={() => {
               this.translate("down");
             }}></input>
-            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="downnum" value={this.state.downnum} />
+            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="downnum" value={this.state.downnum} />
             <br></br>
 
             <input type="button" className="buttons btnLeft" value=" " onClick={() => {
               this.translate("left");
             }}></input>
-            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="leftnum" value={this.state.leftnum} />
+            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="leftnum" value={this.state.leftnum} />
             <br></br>
 
             <input type="button" className="buttons btnRight" value=" " onClick={() => {
               this.translate("right");
             }}></input>
-            <input hidden={this.state.singleMove} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="rightnum" value={this.state.rightnum} />
+            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="rightnum" value={this.state.rightnum} />
             <br></br>
 
             <input type="button" className="buttons btnCounterClock" value=" " onClick={() => {
               this.rotation("counterClockwise");
             }}></input>
-            <select hidden={this.state.singleMove} className="degrees">
+            <select hidden={this.state.singleMove} className="degrees" onChange={this.handleRotationCounter}>
+              <option value="0">0&deg;</option>
               <option value="90">90&deg;</option>
               <option value="180">180&deg;</option>
               <option value="270">270&deg;</option>
@@ -291,7 +345,8 @@ class MindFuel extends Component {
             <input type="button" className="buttons btnClock" value=" " onClick={() => {
               this.rotation("clockwise");
             }}></input>
-            <select hidden={this.state.singleMove} className="degrees">
+            <select hidden={this.state.singleMove} className="degrees" onChange={this.handleRotationClock}>
+              <option value="0">0&deg;</option>
               <option value="90">90&deg;</option>
               <option value="180">180&deg;</option>
               <option value="270">270&deg;</option>
