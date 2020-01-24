@@ -1,0 +1,38 @@
+.buttons {
+    height: 50px;
+    width: 56px;
+    margin-bottom: 30px;
+   
+}
+.btnDown {
+    background: url(./Images/arrow-down.svg);
+}
+.btnUp {
+    background: url(./Images/arrow-up.svg);
+}
+.btnLeft {
+    background: url(./Images/arrow-left.svg);
+}
+.btnRight {
+    background: url(./Images/arrow-right.svg);
+}
+.btnCounterClock {
+    background: url(./Images/rotate-ccw.svg);
+}
+.btnClock {
+    background: url(./Images/rotate-cw.svg);
+}
+.btnReflecX {
+    background: url(./Images/reflection-x.svg);
+}
+.btnReflecY {
+    background: url(./Images/reflection-y.svg) no-repeat;
+}
+
+.numInput {
+    height: 40px;
+    width:80px;
+    margin-left: 35px;
+    font-size: 20px;
+    
+}
