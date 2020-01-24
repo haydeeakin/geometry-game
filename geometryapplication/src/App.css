@@ -39,9 +39,11 @@
 
 .GameArea {
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
+  
+  grid-template-columns: 0.2fr 0.6fr 0.4fr;
+  
   justify-items: center;
 }
 .canvas {
-  border: black solid;
+  border:1px  black solid;
 }
