@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
-//import Queue from "./queue";
+import Queue from "./queue";
 //import Transformation from "./transformation";
 import "./transformation.css"
 import Action from "./actionQueue";
 import "./MindFuel.css";
 
 class MindFuel extends Component {
+
   constructor() {
     super();
     this.canvasHeight = 880;
@@ -16,22 +17,30 @@ class MindFuel extends Component {
     this.heightPerSquare = this.canvasHeight / this.squareCount;
     this.pointRadius = 8;
   }
+
   state = {
     points: [
       [2, 2],
       [4, 2],
       [4, 5]
     ],
+    hideTransform: false,
+    disableBuild: true,
     singleMove: true,
-    upnum: "", downnum: "", rightnum: "", leftnum: "", degreeCounter: 0, degreeClock: 0
+    greyScale: 100,
+    headerColor: "lightgrey",
+    strategyMessage: `For your experiment how Transformation works by DEFAULT values - ONE move (Up, Down, left, Right). 90 degree (Clockwise, Counter-Clockwise).`,
+    upnum: "", downnum: "", rightnum: "", leftnum: "", degreeCounter: 90, degreeClock: 90
   };
 
   drawPoints = () => {
+   
     const ctx = this.canvas.getContext("2d");
     ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.drawCanvasTemplate();
-    ctx.fillStyle = "purple";
-    ctx.strokeStyle = "teal";
+    // ctx.fillStyle = "rgb(131, 131, 0)";
+    ctx.fillStyle = "rgb(223, 182, 0)";
+    // ctx.strokeStyle = "teal";
     // draw triangle point
     for (let b of this.state.points) {
       let pixelPoint = this.translatePointToPixel(b);
@@ -44,7 +53,10 @@ class MindFuel extends Component {
         2 * Math.PI,
         true
       );
+      
       ctx.fill();
+      
+      
     }
     //ctx.font = "30px Courier";
     //draw line (triangle)
@@ -52,26 +64,41 @@ class MindFuel extends Component {
     let pixelPoint1 = this.translatePointToPixel(this.state.points[1]);
     let pixelPoint2 = this.translatePointToPixel(this.state.points[2]);
     ctx.lineWidth = 5;
-
+    ctx.strokeStyle="teal";
+    // new code to draw a triangle
     ctx.beginPath();
-
     ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
     ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
-    ctx.stroke();
-    //ctx.strokeText("C",pixelPoint0[0]-15, pixelPoint0[1])
-
-    ctx.beginPath();
-    ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
     ctx.lineTo(pixelPoint2[0], pixelPoint2[1]);
-    ctx.stroke();
-    //ctx.strokeText("B",pixelPoint2[0]+15, pixelPoint2[1])
+    ctx.closePath();
+    
+    let triangleGradient = ctx.createLinearGradient(this.canvasWidth  / 2, pixelPoint0[1], this.canvasWidth / 2, pixelPoint2[1]);
+    triangleGradient.addColorStop(0, "purple");
+    triangleGradient.addColorStop(1, "black");
+    ctx.fillStyle = triangleGradient;
+    ctx.fill();
 
-    ctx.beginPath();
-    ctx.moveTo(pixelPoint2[0], pixelPoint2[1]);
-    ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
-    ctx.stroke();
-    //ctx.strokeText("A",pixelPoint1[0]+15, pixelPoint1[1])
+    // ctx.fillStyle = "purple";
+    // ctx.fill();
 
+    // ctx.beginPath();
+    // ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
+    // ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
+    // ctx.stroke();
+    // ctx.strokeText("C",pixelPoint0[0]-30, pixelPoint0[1])
+
+    // ctx.beginPath();
+    // ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
+    // ctx.lineTo(pixelPoint2[0], pixelPoint2[1]);
+    // ctx.stroke();
+    // ctx.strokeText("B",pixelPoint2[0]+15, pixelPoint2[1])
+
+    // ctx.beginPath();
+    // ctx.moveTo(pixelPoint2[0], pixelPoint2[1]);
+    // ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
+    // ctx.stroke();
+    // ctx.strokeText("A",pixelPoint1[0]+15, pixelPoint1[1])
+  
   };
 
   translatePointToPixel = point => {
@@ -90,7 +117,7 @@ class MindFuel extends Component {
     const ctx = this.canvas.getContext("2d");
     ctx.fillStyle = "red";
     ctx.font = "17px Arial";
-    let lineWidth = 0.8;
+    let lineWidth = 1;
     ctx.textAlign = "center";
     ctx.strokeStyle = "teal";
     // draw horizontal line 
@@ -193,6 +220,7 @@ class MindFuel extends Component {
     switch (type) {
       case "counterClockwise":
         if (this.state.singleMove === true) {
+         
           rotation(copy.points, 90, [0, 0]);
         }
         else {
@@ -246,17 +274,49 @@ class MindFuel extends Component {
   singletoMultiple = (event) => {
     if (event.target.value === "multiple") {
       this.setState({
-        singleMove: false
+        singleMove: false,
+        hideTransform: false,
+        disableBuild: true,
+        headerColor: "lightgrey",
+        strategyMessage: "For your experiment how Transformation works based on Selecting a value from dropdown list provided.",
+        greyScale: 100,
+        points: [
+          [2, 2],
+          [4, 2],
+          [4, 5]
+        ],
+
       })
-    } else {
+    } else if (event.target.value === "single") {
       this.setState({
         singleMove: true,
+        hideTransform: false,
+        disableBuild: true,
+        headerColor: "lightgrey",
         upnum: "",
         downnum: "",
         leftnum: "",
-        rightnum: "",
-        degreeClock: "",
-        degreeCounter: ""
+        rightnum: "", degreeClock: 90, degreeCounter: 90,
+        strategyMessage: `For your experiment how Transformation works by Default values - ONE move (Up, Down, left, Right). 90 degree (Clockwise, Counter-Clockwise).`,
+        greyScale: 100,
+        points: [
+          [2, 2],
+          [4, 2],
+          [4, 5]
+        ],
+      })
+    } else {
+      this.setState({
+        hideTransform: true,
+        disableBuild: false,
+        headerColor: "purple",
+        strategyMessage: `Please proceed to the RIGHT to "Build Your Strategy". For example: You can select different types of transformation and EXECUTE them all at once.`,
+        greyScale: 0,
+        points: [
+          [2, 2],
+          [4, 2],
+          [4, 5]
+        ],
       })
     }
 
@@ -281,93 +341,137 @@ class MindFuel extends Component {
       degreeClock: event.target.value
     })
   }
+
+  handleUp = (event) => {
+    this.setState({
+      upnum: event.target.value
+    })
+  }
+  handleDown = (event) => {
+    this.setState({
+      downnum: event.target.value
+    })
+  }
+  handleLeft = (event) => {
+    this.setState({
+      leftnum: event.target.value
+    })
+  }
+  handleRight = (event) => {
+    this.setState({
+      rightnum: event.target.value
+    })
+  }
+  buildOptions() {
+    let numList = [];
+
+    for (let i = 0; i <= 20; i++) {
+      numList.push(<option key={i} value={i} >{i}</option>)
+    }
+
+    return numList;
+  }
   render() {
     return (
       <div>
-        <div style={{ height: 80, backgroundColor: "teal" }}>
-          <h2 style={{ color: "white", fontSize: 50, marginTop: 0 }}>Welcome to Transformation Game</h2>
+        <div className="banner">
+          <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
         </div>
         <div>
-          {/* <button className="buttons btnUp"
-            onClick={() => {
-              this.translate("up");
-            }}
-          >
-          </button> */}
-        </div>
 
+        </div>
+       
         <div className="GameArea">
           {/* <Queue id="queue"/> */}
           {/* <Transformation singleMove={true}/> */}
-          <div id="transformation">
-            <h1 style={{ color: "purple" }}>Transformation Selector</h1><br />
+          <div id="transformation" >
+            <h1 style={{ color: "blue", marginBottom: 10 }}>Experiment Transformation</h1><br />
+
             <select className="transformSelector" onChange={this.singletoMultiple}>
               <option value="single">Single Move(Default)</option>
               <option value="multiple">Multiple Moves</option>
+              <option value="strategy">Strategy</option>
             </select>
             <br></br><br></br>
+            <h3 style={{ color: "blue", height: 90, textAlign: "left", marginLeft: 20 }}>{this.state.strategyMessage}
+            </h3><br />
+            <div  style={{ marginTop: 20 }} hidden={this.state.hideTransform} >
+              <input type="button" className="buttons btnUp" value=" " onClick={() => {
+                this.translate("up");
+              }}></input>
+              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="upnum" value={this.state.upnum} /> */}
+              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleUp} value={this.state.upnum}>
+                {this.buildOptions()}
+              </select>
+              <br></br>
 
-            <input type="button" className="buttons btnUp" value=" " onClick={() => {
-              this.translate("up");
-            }}></input>
-            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="upnum" value={this.state.upnum} />
-            <br></br>
+              <input type="button" className="buttons btnDown" value=" " onClick={() => {
+                this.translate("down");
+              }}></input>
+              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="downnum" value={this.state.downnum} /> */}
+              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleDown} value={this.state.downnum}>
+                {this.buildOptions()}
+              </select>
+              <br></br>
 
-            <input type="button" className="buttons btnDown" value=" " onClick={() => {
-              this.translate("down");
-            }}></input>
-            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="downnum" value={this.state.downnum} />
-            <br></br>
+              <input type="button" className="buttons btnLeft" value=" " onClick={() => {
+                this.translate("left");
+              }}></input>
+              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="leftnum" value={this.state.leftnum} /> */}
+              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleLeft} value={this.state.leftnum}>
+                {this.buildOptions()}
+              </select>
+              <br></br>
 
-            <input type="button" className="buttons btnLeft" value=" " onClick={() => {
-              this.translate("left");
-            }}></input>
-            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="leftnum" value={this.state.leftnum} />
-            <br></br>
+              <input type="button" className="buttons btnRight" value=" " onClick={() => {
+                this.translate("right");
+              }}></input>
+              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="rightnum" value={this.state.rightnum} /> */}
+              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleRight} value={this.state.rightnum}>
+                {this.buildOptions()}
+              </select>
+              <br></br>
 
-            <input type="button" className="buttons btnRight" value=" " onClick={() => {
-              this.translate("right");
-            }}></input>
-            <input hidden={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="rightnum" value={this.state.rightnum} />
-            <br></br>
+              <input type="button" className="buttons btnCounterClock" value=" " onClick={() => {
+                this.rotation("counterClockwise");
+              }}></input>
+              <select disabled={this.state.singleMove} value={this.state.degreeCounter} className="degrees" onChange={this.handleRotationCounter}>
+                <option value="0">0&deg;</option>
+                <option value="90">90&deg;</option>
+                <option value="180">180&deg;</option>
+                <option value="270">270&deg;</option>
+              </select>
 
-            <input type="button" className="buttons btnCounterClock" value=" " onClick={() => {
-              this.rotation("counterClockwise");
-            }}></input>
-            <select hidden={this.state.singleMove} className="degrees" onChange={this.handleRotationCounter}>
-              <option value="0">0&deg;</option>
-              <option value="90">90&deg;</option>
-              <option value="180">180&deg;</option>
-              <option value="270">270&deg;</option>
-            </select>
+              <br></br>
+              <input type="button" className="buttons btnClock" value=" " onClick={() => {
+                this.rotation("clockwise");
+              }}></input>
+              <select disabled={this.state.singleMove} value={this.state.degreeClock} className="degrees" onChange={this.handleRotationClock}>
+                <option value="0">0&deg;</option>
+                <option value="90">90&deg;</option>
+                <option value="180">180&deg;</option>
+                <option value="270">270&deg;</option>
+              </select>
 
-            <br></br>
-            <input type="button" className="buttons btnClock" value=" " onClick={() => {
-              this.rotation("clockwise");
-            }}></input>
-            <select hidden={this.state.singleMove} className="degrees" onChange={this.handleRotationClock}>
-              <option value="0">0&deg;</option>
-              <option value="90">90&deg;</option>
-              <option value="180">180&deg;</option>
-              <option value="270">270&deg;</option>
-            </select>
+              <br></br>
 
-            <br></br>
+              <input type="button" className="buttons btnReflecX" value=" " onClick={() => {
+                this.reflection("x");
+              }}></input>
+              {/* <input disabled style={{border:0}} type="text" className="numInput" name="numInput" defaultValue="Reflection-X" /> */}
+              <label className="numInput">Reflection-X</label>
+              <br></br>
 
-            <input type="button" className="buttons btnReflecX" value=" " onClick={() => {
-              this.reflection("x");
-            }}></input>
-            <input disabled hidden={this.state.singleMove} type="text" className="numInput" name="numInput" defaultValue="Reflection-X" />
-            <br></br>
-
-            <input type="button" className="buttons btnReflecY" value=" " onClick={() => {
-              this.reflection("y");
-            }}></input>
-            <input disabled hidden={this.state.singleMove} type="text" className="numInput" name="numInput" defaultValue="Reflection-Y" />
-            <br></br>
+              <input type="button" className="buttons btnReflecY" value=" " onClick={() => {
+                this.reflection("y");
+              }}></input>
+              {/* <input disabled style={{border:0}} type="text" className="numInput" name="numInput" defaultValue="Reflection-Y" /> */}
+              <label className="numInput">Reflection-Y</label>
+              <br></br>
+            </div>
           </div >
           <canvas
-            className="Canvas"
+            className="canvas"
             id="canvas"
             //ref means js-getElement by ID or others
             ref={canvas => {
@@ -376,7 +480,8 @@ class MindFuel extends Component {
             width={this.canvasWidth}
             height={this.canvasHeight}
           />
-          <Action />
+          {/* <Action /> */}
+          <Queue disableOnBuild={this.state.disableBuild} headerFontColor={this.state.headerColor} greyScaleButton={this.state.greyScale} />
         </div>
 
       </div>

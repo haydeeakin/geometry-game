@@ -39,11 +39,16 @@
 
 .GameArea {
   display: grid;
-  
-  grid-template-columns: 0.2fr 0.6fr 0.2fr;
-  
+  background-color: rgb(230, 230, 230);
+  grid-template-columns: 3fr 7.5fr 3fr;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
   justify-items: center;
+  
 }
 .canvas {
-  border:1px  black solid;
+  /* border:1px  black solid; */
+  /* background-color: lightgray; */
 }

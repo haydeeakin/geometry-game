@@ -2,14 +2,14 @@
     height: 55px;
     width: 56px;
     margin-bottom: 5px;
- 
-    
+    margin-right: 10px;
+}
+
+.btnUp {
+    background: url(./Images/arrow-up.svg) no-repeat;
 }
 .btnDown {
     background: url(./Images/arrow-down.svg) no-repeat;
-}
-.btnUp {
-    background: url(./Images/arrow-up.svg) no-repeat;
 }
 .btnLeft {
     background: url(./Images/arrow-left.svg) no-repeat;
@@ -30,9 +30,9 @@
 .btnReflecY {
     background: url(./Images/reflection-y.svg) no-repeat;
 }
-.btnExecute {
+/* .btnExecute {
     background: url(./Images/check-circle.svg) no-repeat;
-}
+} */
 
 .numInput {
     height: 46px;
@@ -42,7 +42,9 @@
     margin-bottom: 3px;
 }
 .transformSelector {
-    height: 5%;
+    /* height: 5%; */
+    height: 4vh;
+    width: 25vh;
     font-size: 18px;
     font-weight: bold;
     color: blue;
@@ -52,5 +54,21 @@
     height: 52px;
     width:100px;
     margin-left: 15px;
-    font-size: 18px;
+    font-size: 2.5vh;
+    
+}
+.degrees:focus {
+    background-color: white
+}
+.banner {
+    color: white;
+    /* font-size: 50px; */
+    margin-top: 0px;
+    height: 80px;
+    background-image: linear-gradient(black,teal, black);
+    
+}
+.header {
+    font-size: 45px;
+    
 }
