@@ -1,5 +1,6 @@
 import React from 'react'
 import "./queue.css"
+import ListItem from "./listItem"
 
 class Queue extends React.Component {
     constructor(props) {
@@ -8,9 +9,22 @@ class Queue extends React.Component {
             queue: [],
             interface: '',
             reflectionBox: true,     //disable number box for reflection
-
+            translate:"Up",
+            num:0
         }
     }
+    handleChangeTranslate = event => {
+        this.setState({
+          translate: event.target.value,
+    
+        })
+      }
+      handleChangeNum = event => {
+        this.setState({
+          num: event.target.value,
+    
+        })
+      }
     interfaceUpdate = (event) => {
         this.setState({
             interface: event.target.value
@@ -28,16 +42,45 @@ class Queue extends React.Component {
         }
 
     }
-    newActionSelector() {
+    buildOptions(typeofTransform) {
+        let numList = [];
+        if (typeofTransform === "translate") {
+            for (let i = 0; i <= 20; i++) {
+                numList.push(<option key={i} value={i} >{i}</option>)
+            }
+            return numList;
+        }
+        else {
+            for (let i = -10; i <= 10; i++) {
+                numList.push(<option key={i} value={i} >{i}</option>)
+            }
+            return numList;
+        }
+    }
+    handleAddTranslation= (type, value, location) => {
+        let queueCopy = this.state.queue;
+        let l = {type: type, value: value, location: location}
+        queueCopy.push(l)
+        this.setState({
+            queue: queueCopy
+        })
+       
+    }
+    newActionSelector = () => {
         if (this.state.interface === "translation") {
             return (
                 <div>
-                    <select className="widthHeight" disabled={this.props.disableOnBuild} >
-                        <option value="x">X</option>
-                        <option value="y">Y</option>
+                    <select onChange={this.handleChangeTranslate} value={this.state.translate} className="widthHeight" disabled={this.props.disableOnBuild} >
+                        <option value="Up">Up</option>
+                        <option value="Down">Down</option>
+                        <option value="Left">Left</option>
+                        <option value="Right">Right</option>
                     </select>
-                    <input className="widthHeight" disabled={this.props.disableOnBuild} type="number" name="x/yValue" min="-20" max="20" defaultValue="0"></input>
-                    <button className="widthHeight" disabled={this.props.disableOnBuild}>Add</button>
+                    {/* <input className="widthHeight" disabled={this.props.disableOnBuild} type="number" name="x/yValue" min="-20" max="20" defaultValue="0"></input> */}
+                    <select onChange={this.handleChangeNum} value={this.state.num} disabled={this.props.disableOnBuild}>
+                        {this.buildOptions("translate")}
+                    </select>
+                    <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAddTranslation(this.state.translate, this.state.num)}>Add</button>
                 </div>
             )
         }
@@ -66,8 +109,11 @@ class Queue extends React.Component {
                         <option value="x">X=</option>
                         <option value="y">Y=</option>
                     </select>
-                    <input className="widthHeight" type="number" name="x/yValue" min="-20" max="20" defaultValue="0" hidden={this.state.reflectionBox}></input>
-                    <button className="widthHeight"disabled={this.props.disableOnBuild}>Add</button>
+                    <select disabled={this.props.disableOnBuild} value={this.state.upnum} hidden={this.state.reflectionBox}>
+                        {this.buildOptions("relection")}
+                    </select>
+                    {/* <input className="widthHeight" type="number" name="x/yValue" min="-20" max="20" defaultValue="0" hidden={this.state.reflectionBox}></input> */}
+                    <button className="widthHeight" disabled={this.props.disableOnBuild}>Add</button>
                 </div>
             )
         }
@@ -75,13 +121,13 @@ class Queue extends React.Component {
     render() {
         return (
             <div className="buildStrategy" >
-                <div style={{textAlign:"center",color:this.props.headerFontColor}}>
-                <h1 style={{marginBottom:10,color:this.props.headerFontColor}}>Build your Strategy</h1><br />
-            
+                <div style={{ textAlign: "center", color: this.props.headerFontColor }}>
+                    <h1 style={{ marginBottom: 10, color: this.props.headerFontColor }}>Build your Strategy</h1><br />
+
                     {/* <input type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>
                     <input type="button" className="buttons btnExecute" value=" " disabled={this.props.disableOnBuild}></input>
                     <br/> */}
-                    <select className="dropdownStrategy" style={{color:this.props.headerFontColor}} onChange={this.interfaceUpdate} disabled={this.props.disableOnBuild}>
+                    <select className="dropdownStrategy" style={{ color: this.props.headerFontColor }} onChange={this.interfaceUpdate} disabled={this.props.disableOnBuild}>
                         <option>Select Transformation</option>
                         <option value="translation">Translation</option>
                         <option value="rotation">Rotation</option>
@@ -91,13 +137,16 @@ class Queue extends React.Component {
                         {this.newActionSelector()}
                     </div>
                     {/* <div className="actionList" style={{ marginLeft:"1fr"}}> */}
-                    <div className="actionList" style={{ backgroundColor:this.props.headerFontColor}}>
+                    <div className="actionList" style={{ backgroundColor: this.props.headerFontColor }}>
+                        {this.state.queue.map((current, index) => {
+                            return <ListItem key ={index} type={current.type} value={current.value} location={current.location}/>
+                        })}
                     </div>
-                    <br/>
-                    <input style={{filter: `grayscale(${this.props.greyScaleButton})`}} type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>
-                    <input style={{filter: `grayscale(${this.props.greyScaleButton})`}} type="button" className="buttons btnExecute" value=" " disabled={this.props.disableOnBuild}></input>
-                    <input style={{filter: `grayscale(${this.props.greyScaleButton})`}} type="button" className="buttons btnUndo" value=" " disabled={this.props.disableOnBuild}></input>
-                    <br/>
+                    <br />
+                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>
+                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnExecute" value=" " disabled={this.props.disableOnBuild}></input>
+                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnUndo" value=" " disabled={this.props.disableOnBuild}></input>
+                    <br />
                 </div>
             </div>
         )
