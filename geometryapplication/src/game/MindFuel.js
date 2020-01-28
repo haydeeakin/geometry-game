@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
 import Queue from "./queue";
-//import Transformation from "./transformation";
 import "./transformation.css"
-// import Action from "./actionQueue";
-import "./MindFuel.css";
 
 class MindFuel extends Component {
 
@@ -293,10 +290,11 @@ class MindFuel extends Component {
         hideTransform: false,
         disableBuild: true,
         headerColor: "lightgrey",
-        upnum: "",
-        downnum: "",
-        leftnum: "",
-        rightnum: "", degreeClock: 90, degreeCounter: 90,
+        // upnum: "",
+        // downnum: "",
+        // leftnum: "",
+        // rightnum: "",
+        degreeClock: 90, degreeCounter: 90,
         strategyMessage: `For your experiment how Transformation works by Default values - ONE move (Up, Down, left, Right). 90 degree (Clockwise, Counter-Clockwise).`,
         greyScale: 100,
         points: [
@@ -325,12 +323,7 @@ class MindFuel extends Component {
     event.preventDefault();
     return false;
   }
-  // handleChange = event => {
-  //   this.setState({
-  //     [event.target.name]: event.target.value,
 
-  //   })
-  // }
   handleRotationCounter = (event) => {
     this.setState({
       degreeCounter: event.target.value
