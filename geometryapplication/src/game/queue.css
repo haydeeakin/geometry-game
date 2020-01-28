@@ -26,7 +26,7 @@ h1 {
 .actionList {
     height: 68%;
     /* width: 450px; */
-    margin-top: 0px;
+    margin-top: 10px;
     /* border: 1px solid blue; */
     background-color: "lightskyblue";
     filter: drop-shadow(22px 16px 2px grey);
@@ -43,8 +43,9 @@ h1 {
 
 .widthHeight {
     width: 8vh;
-    height:3vh;
+    height:4.5vh;
     margin: 0px 0px;
     font-weight: bold;
     font-size: 14px;
+    
 }

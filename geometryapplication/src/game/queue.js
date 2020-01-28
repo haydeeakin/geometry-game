@@ -9,22 +9,22 @@ class Queue extends React.Component {
             queue: [],
             interface: '',
             reflectionBox: true,     //disable number box for reflection
-            translate:"Up",
-            num:0
+            translate: "Up",
+            num: 1
         }
     }
     handleChangeTranslate = event => {
         this.setState({
-          translate: event.target.value,
-    
+            translate: event.target.value,
+
         })
-      }
-      handleChangeNum = event => {
+    }
+    handleChangeNum = event => {
         this.setState({
-          num: event.target.value,
-    
+            num: event.target.value,
+
         })
-      }
+    }
     interfaceUpdate = (event) => {
         this.setState({
             interface: event.target.value
@@ -45,7 +45,7 @@ class Queue extends React.Component {
     buildOptions(typeofTransform) {
         let numList = [];
         if (typeofTransform === "translate") {
-            for (let i = 0; i <= 20; i++) {
+            for (let i = 1; i <= 20; i++) {
                 numList.push(<option key={i} value={i} >{i}</option>)
             }
             return numList;
@@ -57,14 +57,14 @@ class Queue extends React.Component {
             return numList;
         }
     }
-    handleAddTranslation= (type, value, location) => {
+    handleAddTranslation = (type, value, location) => {
         let queueCopy = this.state.queue;
-        let l = {type: type, value: value, location: location}
+        let l = { type: type, value: value, location: location }
         queueCopy.push(l)
         this.setState({
             queue: queueCopy
         })
-       
+
     }
     newActionSelector = () => {
         if (this.state.interface === "translation") {
@@ -77,7 +77,7 @@ class Queue extends React.Component {
                         <option value="Right">Right</option>
                     </select>
                     {/* <input className="widthHeight" disabled={this.props.disableOnBuild} type="number" name="x/yValue" min="-20" max="20" defaultValue="0"></input> */}
-                    <select onChange={this.handleChangeNum} value={this.state.num} disabled={this.props.disableOnBuild}>
+                    <select className="widthHeight" onChange={this.handleChangeNum} value={this.state.num} disabled={this.props.disableOnBuild}>
                         {this.buildOptions("translate")}
                     </select>
                     <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAddTranslation(this.state.translate, this.state.num)}>Add</button>
@@ -103,7 +103,7 @@ class Queue extends React.Component {
         if (this.state.interface === "reflection") {
             return (
                 <div>
-                    <select className="widthHeight" onChange={this.reflectionBoxUpdate} disabled={this.props.disableOnBuild}>
+                    <select className="widthHeight" style={{width: "10vh"}} onChange={this.reflectionBoxUpdate} disabled={this.props.disableOnBuild}>
                         <option value="xAxis">X Axis</option>
                         <option value="yAxis">Y Axis</option>
                         <option value="x">X=</option>
@@ -119,6 +119,7 @@ class Queue extends React.Component {
         }
     }
     render() {
+        console.log(this.state.queue)
         return (
             <div className="buildStrategy" >
                 <div style={{ textAlign: "center", color: this.props.headerFontColor }}>
@@ -139,7 +140,7 @@ class Queue extends React.Component {
                     {/* <div className="actionList" style={{ marginLeft:"1fr"}}> */}
                     <div className="actionList" style={{ backgroundColor: this.props.headerFontColor }}>
                         {this.state.queue.map((current, index) => {
-                            return <ListItem key ={index} type={current.type} value={current.value} location={current.location}/>
+                            return <ListItem key={index} type={current.type} value={current.value} location={current.location} />
                         })}
                     </div>
                     <br />

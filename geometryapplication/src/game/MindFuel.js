@@ -30,7 +30,7 @@ class MindFuel extends Component {
     greyScale: 100,
     headerColor: "lightgrey",
     strategyMessage: `For your experiment how Transformation works by DEFAULT values - ONE move (Up, Down, left, Right). 90 degree (Clockwise, Counter-Clockwise).`,
-    upnum: "", downnum: "", rightnum: "", leftnum: "", degreeCounter: 90, degreeClock: 90
+    upnum: 1, downnum: 1, rightnum: 1, leftnum: 1, degreeCounter: 90, degreeClock: 90
   };
 
   drawPoints = () => {
@@ -325,12 +325,12 @@ class MindFuel extends Component {
     event.preventDefault();
     return false;
   }
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
+  // handleChange = event => {
+  //   this.setState({
+  //     [event.target.name]: event.target.value,
 
-    })
-  }
+  //   })
+  // }
   handleRotationCounter = (event) => {
     this.setState({
       degreeCounter: event.target.value
@@ -365,7 +365,7 @@ class MindFuel extends Component {
   buildOptions() {
     let numList = [];
 
-    for (let i = 0; i <= 20; i++) {
+    for (let i = 1; i <= 20; i++) {
       numList.push(<option key={i} value={i} >{i}</option>)
     }
 
@@ -436,7 +436,7 @@ class MindFuel extends Component {
                 this.rotation("counterClockwise");
               }}></input>
               <select disabled={this.state.singleMove} value={this.state.degreeCounter} className="degrees" onChange={this.handleRotationCounter}>
-                <option value="0">0&deg;</option>
+                {/* <option value="0">0&deg;</option> */}
                 <option value="90">90&deg;</option>
                 <option value="180">180&deg;</option>
                 <option value="270">270&deg;</option>
@@ -447,7 +447,7 @@ class MindFuel extends Component {
                 this.rotation("clockwise");
               }}></input>
               <select disabled={this.state.singleMove} value={this.state.degreeClock} className="degrees" onChange={this.handleRotationClock}>
-                <option value="0">0&deg;</option>
+                {/* <option value="0">0&deg;</option> */}
                 <option value="90">90&deg;</option>
                 <option value="180">180&deg;</option>
                 <option value="270">270&deg;</option>
