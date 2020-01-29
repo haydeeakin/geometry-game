@@ -282,7 +282,10 @@ class MindFuel extends Component {
           [4, 2],
           [4, 5]
         ],
-
+        upnum: 1,
+        downnum: 1,
+        leftnum: 1,
+        rightnum: 1,
       })
     } else if (event.target.value === "single") {
       this.setState({
