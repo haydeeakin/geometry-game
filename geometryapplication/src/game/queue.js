@@ -1,6 +1,7 @@
 import React from 'react'
 import "./queue.css"
 import ListItem from "./listItem"
+import { translation, rotation, reflection } from "./game";
 
 class Queue extends React.Component {
     constructor(props) {
@@ -13,7 +14,10 @@ class Queue extends React.Component {
             num: 1,
             rotate: "Clockwise",
             degree: 90,
-           
+            xynum: 0,
+            line: [1,0,0],
+            points: props.points,
+            changePoints: props.changePoints
         }
     }
     handleChangeTranslate = event => {
@@ -57,6 +61,11 @@ class Queue extends React.Component {
         }
 
     }
+    handleChangeXynum = (event) => {
+        this.setState({
+            xynum: event.target.value
+        })
+    }
     
     buildOptions(typeofTransform) {
         let numList = [];
@@ -73,7 +82,7 @@ class Queue extends React.Component {
             return numList;
         }
     }
-    handleAdd = (transform, type, value, location) => {
+    handleAdd = (transform, type = null, value = null, location = [0,0]) => {
         let queueCopy = this.state.queue;
         let l = {transform: transform, type: type, value: value, location: location }
         queueCopy.push(l)
@@ -81,6 +90,31 @@ class Queue extends React.Component {
             queue: queueCopy
         })
 
+    }
+    handleExecute = () => {
+        let copyPoints = this.state.points
+        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Up'){
+            translation(copyPoints, Number(this.state.queue[0].value), 'y')
+        }
+        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Down'){
+            translation(copyPoints, -Number(this.state.queue[0].value), 'y')
+        }
+        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Right'){
+            translation(copyPoints, Number(this.state.queue[0].value), 'x')
+        }
+        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Left'){
+            translation(copyPoints, -Number(this.state.queue[0].value), 'x')
+        }
+        if(this.state.queue[0].transform === 'Rotate' && this.state.queue[0].type === 'Clockwise'){
+            rotation(copyPoints, -Number(this.state.queue[0].value), this.state.queue[0].location)
+        }
+        if(this.state.queue[0].transform === 'Rotate' && this.state.queue[0].type === 'Counter-Clock'){
+            rotation(copyPoints, Number(this.state.queue[0].value), this.state.queue[0].location)
+        }
+        if(this.state.queue[0].transform === 'Reflection' && this.state.queue[0].type === 'y'){
+            reflection(copyPoints, )
+        }
+        this.state.changePoints(copyPoints);
     }
     newActionSelector = () => {
         if (this.state.interface === "Translation") {
@@ -125,17 +159,16 @@ class Queue extends React.Component {
                         <option value="x">X=</option>
                         <option value="y">Y=</option>
                     </select>
-                    <select disabled={this.props.disableOnBuild} value={this.state.xynum} hidden={this.state.reflectionBox}>
+                    <select disabled={this.props.disableOnBuild} value={this.state.xynum} hidden={this.state.reflectionBox} onChange={this.handleChangeXynum}>
                         {this.buildOptions("relection")}
                     </select>
                     {/* <input className="widthHeight" type="number" name="x/yValue" min="-20" max="20" defaultValue="0" hidden={this.state.reflectionBox}></input> */}
-                    <button className="widthHeight" disabled={this.props.disableOnBuild}>Add</button>
+                    <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Reflect", null, null, [this.state.reflectionBox, this.state.xynum])}>Add</button>
                 </div>
             )
         }
     }
     render() {
-        console.log(this.state.queue)
         return (
             <div className="buildStrategy" >
                 <div style={{ textAlign: "center", color: this.props.headerFontColor }}>
@@ -161,7 +194,7 @@ class Queue extends React.Component {
                     </div>
                     <br />
                     <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>
-                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnExecute" value=" " disabled={this.props.disableOnBuild}></input>
+                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnExecute" value=" " onClick={this.handleExecute} disabled={this.props.disableOnBuild}></input>
                     <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnUndo" value=" " disabled={this.props.disableOnBuild}></input>
                     <br />
                 </div>

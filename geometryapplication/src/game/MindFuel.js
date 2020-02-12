@@ -29,7 +29,11 @@ class MindFuel extends Component {
     strategyMessage: `For your experiment how Transformation works by DEFAULT values - ONE move (Up, Down, left, Right). 90 degree (Clockwise, Counter-Clockwise).`,
     upnum: 1, downnum: 1, rightnum: 1, leftnum: 1, degreeCounter: 90, degreeClock: 90
   };
-
+  changePointsStrategy = (points) => {
+    this.setState({
+      points: points
+    })
+  }
   drawPoints = () => {
    
     const ctx = this.canvas.getContext("2d");
@@ -149,36 +153,16 @@ class MindFuel extends Component {
     let copy = JSON.parse(JSON.stringify(this.state));
     switch (direction) {
       case "up":
-        if (this.state.singleMove === true) {
-          translation(copy.points, 1, "y");
-        }
-        else {
-          translation(copy.points, Number(this.state.upnum), "y");
-        }
+        translation(copy.points, Number(this.state.upnum), "y");
         break;
       case "down":
-        if (this.state.singleMove === true) {
-          translation(copy.points, -1, "y");
-        }
-        else {
-          translation(copy.points, Number(this.state.downnum) * -1, "y");
-        }
+        translation(copy.points, Number(this.state.downnum) * -1, "y");
         break;
       case "right":
-        if (this.state.singleMove === true) {
-          translation(copy.points, 1, "x");
-        }
-        else {
-          translation(copy.points, Number(this.state.rightnum), "x");
-        }
+        translation(copy.points, Number(this.state.rightnum), "x");
         break;
       case "left":
-        if (this.state.singleMove === true) {
-          translation(copy.points, -1, "x");
-        }
-        else {
-          translation(copy.points, Number(this.state.leftnum) * -1, "x");
-        }
+        translation(copy.points, Number(this.state.leftnum) * -1, "x");
         break;
       default:
         break;
@@ -192,21 +176,10 @@ class MindFuel extends Component {
     let copy = JSON.parse(JSON.stringify(this.state));
     switch (type) {
       case "counterClockwise":
-        if (this.state.singleMove === true) {
-         
-          rotation(copy.points, 90, [0, 0]);
-        }
-        else {
-          rotation(copy.points, this.state.degreeCounter, [0, 0]);
-        }
+        rotation(copy.points, this.state.degreeCounter, [0, 0]);
         break;
       case "clockwise":
-        if (this.state.singleMove === true) {
-          rotation(copy.points, -90, [0, 0]);
-        }
-        else {
-          rotation(copy.points, this.state.degreeClock * -1, [0, 0]);
-        }
+        rotation(copy.points, this.state.degreeClock * -1, [0, 0]);
         break;
       default:
         break;
@@ -433,7 +406,7 @@ class MindFuel extends Component {
             height={this.canvasHeight}
           />
           {/* <Action /> */}
-          <Queue disableOnBuild={this.state.disableBuild} headerFontColor={this.state.headerColor} greyScaleButton={this.state.greyScale} />
+          <Queue changePoints={this.changePointsStrategy} points={this.state.points} disableOnBuild={this.state.disableBuild} headerFontColor={this.state.headerColor} greyScaleButton={this.state.greyScale} />
         </div>
 
       </div>
