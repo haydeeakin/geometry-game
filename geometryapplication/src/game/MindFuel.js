@@ -75,27 +75,6 @@ class MindFuel extends Component {
     ctx.fillStyle = triangleGradient;
     ctx.fill();
 
-    // ctx.fillStyle = "purple";
-    // ctx.fill();
-
-    // ctx.beginPath();
-    // ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
-    // ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
-    // ctx.stroke();
-    // ctx.strokeText("C",pixelPoint0[0]-30, pixelPoint0[1])
-
-    // ctx.beginPath();
-    // ctx.moveTo(pixelPoint0[0], pixelPoint0[1]);
-    // ctx.lineTo(pixelPoint2[0], pixelPoint2[1]);
-    // ctx.stroke();
-    // ctx.strokeText("B",pixelPoint2[0]+15, pixelPoint2[1])
-
-    // ctx.beginPath();
-    // ctx.moveTo(pixelPoint2[0], pixelPoint2[1]);
-    // ctx.lineTo(pixelPoint1[0], pixelPoint1[1]);
-    // ctx.stroke();
-    // ctx.strokeText("A",pixelPoint1[0]+15, pixelPoint1[1])
-  
   };
 
   translatePointToPixel = point => {
@@ -120,17 +99,14 @@ class MindFuel extends Component {
     // draw horizontal line 
     for (let i = 40; i <= this.canvasHeight; i += this.widthPerSquare) {
       ctx.lineWidth = lineWidth;
-
       if (i === this.canvasHeight / 2) {
         ctx.lineWidth = 5;
 
       }
-
       ctx.beginPath();
       ctx.moveTo(38, i);
       ctx.lineTo(this.canvasWidth - 40, i);
       ctx.stroke();
-
       // add x axis label
       let labelX;
       for (let u = -10; u <= 10; u++) {
@@ -287,26 +263,8 @@ class MindFuel extends Component {
         leftnum: 1,
         rightnum: 1,
       })
-    } else if (event.target.value === "single") {
-      this.setState({
-        singleMove: true,
-        hideTransform: false,
-        disableBuild: true,
-        headerColor: "lightgrey",
-        upnum: 1,
-        downnum: 1,
-        leftnum: 1,
-        rightnum: 1,
-        degreeClock: 90, degreeCounter: 90,
-        strategyMessage: `For your experiment how Transformation works by Default values - ONE move (Up, Down, left, Right). 90 degree (Clockwise, Counter-Clockwise).`,
-        greyScale: 100,
-        points: [
-          [2, 2],
-          [4, 2],
-          [4, 5]
-        ],
-      })
-    } else {
+    } 
+    else {
       this.setState({
         hideTransform: true,
         disableBuild: false,
@@ -382,9 +340,7 @@ class MindFuel extends Component {
           {/* <Transformation singleMove={true}/> */}
           <div id="transformation" >
             <h1 style={{ color: "blue", marginBottom: 10 }}>Experiment Transformation</h1><br />
-
             <select className="transformSelector" onChange={this.singletoMultiple}>
-              <option value="single">Single Move(Default)</option>
               <option value="multiple">Multiple Moves</option>
               <option value="strategy">Strategy</option>
             </select>
