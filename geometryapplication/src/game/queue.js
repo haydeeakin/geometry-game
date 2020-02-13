@@ -16,9 +16,15 @@ class Queue extends React.Component {
             degree: 90,
             xynum: 0,
             line: [1,0,0],
+            axis: "xAxis",
             points: props.points,
             changePoints: props.changePoints
         }
+    }
+    handleAxisChange = event => {
+        this.setState({
+            axis: event.target.value
+        })
     }
     handleChangeTranslate = event => {
         this.setState({
@@ -82,39 +88,82 @@ class Queue extends React.Component {
             return numList;
         }
     }
+    pointsInbound = coordinate => {
+        for (let b of coordinate) {
+          if (b[0] < -10 || b[0] > 10) {
+            return false;
+          }
+          if (b[1] < -10 || b[1] > 10) {
+            return false;
+          }
+        }
+        return true;
+      };
     handleAdd = (transform, type = null, value = null, location = [0,0]) => {
+        if(this.state.queue.length > 5){
+            return;
+        }
         let queueCopy = this.state.queue;
         let l = {transform: transform, type: type, value: value, location: location }
+        if(l.transform == "Reflect"){
+            if(this.state.axis === "xAxis"){
+                l.location = [0,1,0]
+            }
+            if(this.state.axis === "yAxis"){
+                l.location = [1,0,0]
+            }
+            if(this.state.axis === "x"){
+                l.location = [1,0,-this.state.xynum]
+            }
+            if(this.state.axis === "y"){
+                l.location = [0,1,-this.state.xynum]
+            }
+            
+        }
         queueCopy.push(l)
         this.setState({
             queue: queueCopy
         })
 
     }
-    handleExecute = () => {
+
+    handleExecute = async() => {
         let copyPoints = this.state.points
-        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Up'){
-            translation(copyPoints, Number(this.state.queue[0].value), 'y')
+        for(let i = 0; i<this.state.queue.length; i++){
+            if(this.state.queue[i].transform === 'Translate' && this.state.queue[i].type === 'Up'){
+                translation(copyPoints, Number(this.state.queue[i].value), 'y')
+            }
+            if(this.state.queue[i].transform === 'Translate' && this.state.queue[i].type === 'Down'){
+                translation(copyPoints, -Number(this.state.queue[i].value), 'y')
+            }
+            if(this.state.queue[i].transform === 'Translate' && this.state.queue[i].type === 'Right'){
+                translation(copyPoints, Number(this.state.queue[i].value), 'x')
+            }
+            if(this.state.queue[i].transform === 'Translate' && this.state.queue[i].type === 'Left'){
+                translation(copyPoints, -Number(this.state.queue[i].value), 'x')
+            }
+            if(this.state.queue[i].transform === 'Rotate' && this.state.queue[i].type === 'Clockwise'){
+                rotation(copyPoints, -Number(this.state.queue[i].value), this.state.queue[i].location)
+            }
+            if(this.state.queue[i].transform === 'Rotate' && this.state.queue[i].type === 'Counter-Clock'){
+                rotation(copyPoints, Number(this.state.queue[i].value), this.state.queue[i].location)
+            }
+            if(this.state.queue[i].transform === 'Reflect'){
+                reflection(copyPoints, this.state.queue[i].location)
+            }
+            if(this.pointsInbound(copyPoints)){
+                await this.state.changePoints(copyPoints);
+            }else{
+                
+                break
+            }
+            
+            
         }
-        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Down'){
-            translation(copyPoints, -Number(this.state.queue[0].value), 'y')
-        }
-        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Right'){
-            translation(copyPoints, Number(this.state.queue[0].value), 'x')
-        }
-        if(this.state.queue[0].transform === 'Translate' && this.state.queue[0].type === 'Left'){
-            translation(copyPoints, -Number(this.state.queue[0].value), 'x')
-        }
-        if(this.state.queue[0].transform === 'Rotate' && this.state.queue[0].type === 'Clockwise'){
-            rotation(copyPoints, -Number(this.state.queue[0].value), this.state.queue[0].location)
-        }
-        if(this.state.queue[0].transform === 'Rotate' && this.state.queue[0].type === 'Counter-Clock'){
-            rotation(copyPoints, Number(this.state.queue[0].value), this.state.queue[0].location)
-        }
-        if(this.state.queue[0].transform === 'Reflection' && this.state.queue[0].type === 'y'){
-            reflection(copyPoints, )
-        }
-        this.state.changePoints(copyPoints);
+        this.setState({
+            queue: []
+        })
+        
     }
     newActionSelector = () => {
         if (this.state.interface === "Translation") {
@@ -153,7 +202,7 @@ class Queue extends React.Component {
         if (this.state.interface === "Reflection") {
             return (
                 <div>
-                    <select className="widthHeight" style={{width: "10vh"}} onChange={this.reflectionBoxUpdate} disabled={this.props.disableOnBuild}>
+                    <select className="widthHeight" style={{width: "10vh"}} onChange={(event) => {this.reflectionBoxUpdate(event); this.handleAxisChange(event)}} disabled={this.props.disableOnBuild} value={this.state.axis}>
                         <option value="xAxis">X Axis</option>
                         <option value="yAxis">Y Axis</option>
                         <option value="x">X=</option>
@@ -163,7 +212,7 @@ class Queue extends React.Component {
                         {this.buildOptions("relection")}
                     </select>
                     {/* <input className="widthHeight" type="number" name="x/yValue" min="-20" max="20" defaultValue="0" hidden={this.state.reflectionBox}></input> */}
-                    <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Reflect", null, null, [this.state.reflectionBox, this.state.xynum])}>Add</button>
+                    <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Reflect", "y", null, [this.state.reflectionBox, this.state.xynum])}>Add</button>
                 </div>
             )
         }
