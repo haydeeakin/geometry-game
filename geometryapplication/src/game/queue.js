@@ -238,7 +238,7 @@ class DisplayQueue extends React.Component {
     render() {
         return (
             <div className="buildStrategy" >
-                <div style={{ textAlign: "center", color: this.props.headerFontColor }} hidden>
+                <div style={{ textAlign: "center", color: this.props.headerFontColor }} >
                     <h1 style={{ marginBottom: 10, color: this.props.headerFontColor }}>Build your Strategy</h1><br />
 
                     {/* <input type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
 
-class Login extends React.Component {
+export class Login extends React.Component {
     state = {
         email: '',
         password: '',

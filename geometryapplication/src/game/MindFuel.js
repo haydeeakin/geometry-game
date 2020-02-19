@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
 import Queue from "./queue";
 import "./transformation.css"
+// import {Login} from '../routes/Login'
 
 class MindFuel extends Component {
 
@@ -305,7 +306,10 @@ class MindFuel extends Component {
           
           <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
         </div>
-        <div style={{textAlign:"left"}}>
+        {/* <div>
+          <Login />
+        </div> */}
+        <div style={{textAlign:"left"}} >
           <button className="navbar">Experiment</button>
           <button className="navbar">Challenges</button>
           {/* <button className="navbar">Sign In</button> */}
@@ -315,7 +319,7 @@ class MindFuel extends Component {
         <div className="GameArea" >
           {/* <Queue id="queue"/> */}
           {/* <Transformation singleMove={true}/> */}
-          <div id="transformation" hidden>
+          <div id="transformation" >
             <h1 style={{ color: "blue", marginBottom: 10 }}>Experiment Transformation</h1><br />
             <select className="transformSelector" onChange={this.singletoMultiple}>
               <option value="multiple">Multiple Moves</option>
@@ -399,7 +403,7 @@ class MindFuel extends Component {
               <br></br>
             </div>
           </div >
-          <canvas hidden
+          <canvas 
             className="canvas"
             id="canvas"
             //ref means js-getElement by ID or others
