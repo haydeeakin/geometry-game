@@ -3,7 +3,7 @@ import "./queue.css"
 import ListItem from "./listItem"
 import { translation, rotation, reflection } from "./game";
 
-class Queue extends React.Component {
+class DisplayQueue extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +18,8 @@ class Queue extends React.Component {
             line: [1,0,0],
             axis: "xAxis",
             points: props.points,
-            changePoints: props.changePoints
+            changePoints: props.changePoints,
+            message: "",
         }
     }
     handleAxisChange = event => {
@@ -50,6 +51,18 @@ class Queue extends React.Component {
 
         })
     }
+    handleUndo = () => {
+        let copyQueue = this.state.queue;
+        copyQueue.pop();
+        this.setState({
+            queue: copyQueue
+        })
+    }
+    handleClearAll = () => {
+        this.setState({
+            queue: [],
+        })
+    }
     interfaceUpdate = (event) => {
         this.setState({
             interface: event.target.value
@@ -72,6 +85,7 @@ class Queue extends React.Component {
             xynum: event.target.value
         })
     }
+
     
     buildOptions(typeofTransform) {
         let numList = [];
@@ -105,7 +119,7 @@ class Queue extends React.Component {
         }
         let queueCopy = this.state.queue;
         let l = {transform: transform, type: type, value: value, location: location }
-        if(l.transform == "Reflect"){
+        if(l.transform === "Reflect"){
             if(this.state.axis === "xAxis"){
                 l.location = [0,1,0]
             }
@@ -126,7 +140,11 @@ class Queue extends React.Component {
         })
 
     }
-
+    messageArea = (message = "") => {
+        this.setState({
+            message: message
+        })
+    }
     handleExecute = async() => {
         let copyPoints = this.state.points
         for(let i = 0; i<this.state.queue.length; i++){
@@ -154,7 +172,7 @@ class Queue extends React.Component {
             if(this.pointsInbound(copyPoints)){
                 await this.state.changePoints(copyPoints);
             }else{
-                
+                this.messageArea("step " + (i + 1).toString() + " placed the shape out of bounds")
                 break
             }
             
@@ -220,7 +238,7 @@ class Queue extends React.Component {
     render() {
         return (
             <div className="buildStrategy" >
-                <div style={{ textAlign: "center", color: this.props.headerFontColor }}>
+                <div style={{ textAlign: "center", color: this.props.headerFontColor }} hidden>
                     <h1 style={{ marginBottom: 10, color: this.props.headerFontColor }}>Build your Strategy</h1><br />
 
                     {/* <input type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>
@@ -235,20 +253,103 @@ class Queue extends React.Component {
                     <div style={{ height: 40 }} >
                         {this.newActionSelector()}
                     </div>
-                    {/* <div className="actionList" style={{ marginLeft:"1fr"}}> */}
+                    
                     <div className="actionList" style={{ backgroundColor: this.props.headerFontColor }}>
                         {this.state.queue.map((current, index) => {
                             return <ListItem key={index} typeTransform={current.transform} type={current.type} value={current.value} location={current.location} /> 
                         })}
                     </div>
+                    <p>{this.state.message}</p>
                     <br />
-                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>
+                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnCancel" value=" " onClick={this.handleClearAll} disabled={this.props.disableOnBuild}></input>
                     <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnExecute" value=" " onClick={this.handleExecute} disabled={this.props.disableOnBuild}></input>
-                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnUndo" value=" " disabled={this.props.disableOnBuild}></input>
+                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnUndo" value=" " onClick={this.handleUndo} disabled={this.props.disableOnBuild}></input>
                     <br />
                 </div>
             </div>
         )
     }
 }
-export default Queue;
+class Transformation {
+    constructor(validCoordinates, points){
+        this.queue = [];
+        this.validCoordinates = validCoordinates;
+        this.points = points;
+    }
+    add = (transform, type = null, value = null, location = [0,0]) => {
+        if(this.queue.length > 5){
+            return;
+        }
+        let l = {transform: transform, type: type, value: value, location: location }
+        if(l.transform === "Reflect"){
+            if(this.state.axis === "xAxis"){
+                l.location = [0,1,0]
+            }
+            if(this.state.axis === "yAxis"){
+                l.location = [1,0,0]
+            }
+            if(this.state.axis === "x"){
+                l.location = [1,0,-this.state.xynum]
+            }
+            if(this.state.axis === "y"){
+                l.location = [0,1,-this.state.xynum]
+            }
+            
+        }
+        this.queue.push(l)
+
+    }
+    remove = (index) => {
+        this.queue.splice(index, 1);
+    }
+    validate = (coordinate) => {
+        for (let b of coordinate) {
+          if (b[0] < this.validCoordinates[0] || b[0] > this.validCoordinates[1]) {
+            return false;
+          }
+          if (b[1] < this.validCoordinates[2] || b[1] > this.validCoordinates[3]) {
+            return false;
+          }
+        }
+        return true;
+    }
+    execute = () => {
+        let copyPoints = this.points
+        for(let i = 0; i<this.queue.length; i++){
+            if(this.queue[i].transform === 'Translate' && this.queue[i].type === 'Up'){
+                translation(copyPoints, Number(this.queue[i].value), 'y')
+            }
+            if(this.queue[i].transform === 'Translate' && this.queue[i].type === 'Down'){
+                translation(copyPoints, -Number(this.state.queue[i].value), 'y')
+            }
+            if(this.queue[i].transform === 'Translate' && this.queue[i].type === 'Right'){
+                translation(copyPoints, Number(this.queue[i].value), 'x')
+            }
+            if(this.queue[i].transform === 'Translate' && this.queue[i].type === 'Left'){
+                translation(copyPoints, -Number(this.queue[i].value), 'x')
+            }
+            if(this.queue[i].transform === 'Rotate' && this.queue[i].type === 'Clockwise'){
+                rotation(copyPoints, -Number(this.queue[i].value), this.queue[i].location)
+            }
+            if(this.queue[i].transform === 'Rotate' && this.queue[i].type === 'Counter-Clock'){
+                rotation(copyPoints, Number(this.queue[i].value), this.queue[i].location)
+            }
+            if(this.queue[i].transform === 'Reflect'){
+                reflection(copyPoints, this.queue[i].location)
+            }
+            if(this.validate(copyPoints)){
+                this.state.changePoints(copyPoints);
+            }else{
+                
+                break
+            }
+            
+            
+        }
+        this.points = copyPoints;
+        
+    }
+
+}
+
+export default DisplayQueue;
