@@ -27,7 +27,7 @@ class MindFuel extends Component {
     singleMove: true,
     greyScale: 100,
     headerColor: "lightgrey",
-    strategyMessage: `For your experiment how Transformation works by DEFAULT values - ONE move (Up, Down, left, Right). 90 degree (Clockwise, Counter-Clockwise).`,
+    strategyMessage: "For your experiment how Transformation works based on Selecting a value from dropdown list provided.",
     upnum: 1, downnum: 1, rightnum: 1, leftnum: 1, degreeCounter: 90, degreeClock: 90
   };
   changePointsStrategy = (points) => {
