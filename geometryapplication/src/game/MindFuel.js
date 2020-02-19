@@ -309,17 +309,17 @@ class MindFuel extends Component {
         {/* <div>
           <Login />
         </div> */}
-        <div style={{textAlign:"left"}} >
+        <div style={{textAlign:"left"}} hidden>
           <button className="navbar">Experiment</button>
           <button className="navbar">Challenges</button>
           {/* <button className="navbar">Sign In</button> */}
           <button className="navbar">Sign Out</button>
         </div>
        
-        <div className="GameArea" >
+        <div className="GameArea" style={{backgroundColor:"black"}} >
           {/* <Queue id="queue"/> */}
           {/* <Transformation singleMove={true}/> */}
-          <div id="transformation" >
+          <div id="transformation" style={{backgroundColor:"black"}} >
             <h1 style={{ color: "blue", marginBottom: 10 }}>Experiment Transformation</h1><br />
             <select className="transformSelector" onChange={this.singletoMultiple}>
               <option value="multiple">Multiple Moves</option>
@@ -403,7 +403,7 @@ class MindFuel extends Component {
               <br></br>
             </div>
           </div >
-          <canvas 
+          <canvas style={{backgroundColor:"black"}}
             className="canvas"
             id="canvas"
             //ref means js-getElement by ID or others

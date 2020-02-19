@@ -80,3 +80,8 @@
     font-weight: bold;
     margin-right: 5px;
 }
+.GameArea {
+    /* background-image: url('./Images/backgroundforChallenges.JPG'); */
+    background-color: rgb(0, 0, 0);
+    /* height: 10/0%; */
+}
