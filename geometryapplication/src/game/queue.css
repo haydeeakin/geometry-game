@@ -23,6 +23,7 @@ h1 {
     background: url(./Images/undo.svg) no-repeat;
    
 }
+
 .actionList {
     height: 68%;
     /* width: 450px; */
@@ -33,19 +34,28 @@ h1 {
     /* background: url(./Images/actionList.jpg) no-repeat; */
 }
 .dropdownStrategy {
-    height: 4vh;
-    width: 25vh;
+    height: 5vh;
+    width: 35vh;
     font-size: 18px;
     font-weight: bold;
+    background-color: black;
+    margin-bottom: 2px;
     /* color: blue; */
     /* background-color: lightgray; */
 }
 
 .widthHeight {
-    width: 8vh;
+    /* width: 8vh; */
     height:4.5vh;
     margin: 0px 0px;
     font-weight: bold;
     font-size: 14px;
     
+}
+.dropbox {
+    width: 18vh;
+}
+
+.btnAdd {
+    width: 80px
 }

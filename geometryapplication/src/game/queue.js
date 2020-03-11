@@ -187,7 +187,7 @@ class DisplayQueue extends React.Component {
         if (this.state.interface === "Translation") {
             return (
                 <div>
-                    <select onChange={this.handleChangeTranslate} value={this.state.translate} className="widthHeight" disabled={this.props.disableOnBuild} >
+                    <select className="widthHeight dropbox" onChange={this.handleChangeTranslate} value={this.state.translate} className="widthHeight" disabled={this.props.disableOnBuild} >
                         <option value="Up">Up</option>
                         <option value="Down">Down</option>
                         <option value="Left">Left</option>
@@ -197,14 +197,14 @@ class DisplayQueue extends React.Component {
                     <select className="widthHeight" onChange={this.handleChangeNum} value={this.state.num} disabled={this.props.disableOnBuild}>
                         {this.buildOptions("translate")}
                     </select>
-                    <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Translate",this.state.translate, this.state.num)}>Add</button>
+                    <button className="widthHeight btnAdd" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Translate",this.state.translate, this.state.num)}>Add</button>
                 </div>
             )
         }
         if (this.state.interface === "Rotation") {
             return (
                 <div>
-                    <select className="widthHeight" disabled={this.props.disableOnBuild} onChange={this.handleChangeRotate}>
+                    <select className="widthHeight dropbox" disabled={this.props.disableOnBuild} onChange={this.handleChangeRotate}>
                         <option value="Clockwise">Clockwise</option>
                         <option value="Counter-Clock">Counter-Clock</option>
                     </select>
@@ -213,14 +213,14 @@ class DisplayQueue extends React.Component {
                         <option value="180">180&deg;</option>
                         <option value="270">270&deg;</option>
                     </select>
-                    <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Rotate",this.state.rotate, this.state.degree)}>Add</button>
+                    <button className="widthHeight btnAdd" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Rotate",this.state.rotate, this.state.degree)}>Add</button>
                 </div>
             )
         }
         if (this.state.interface === "Reflection") {
             return (
                 <div>
-                    <select className="widthHeight" style={{width: "10vh"}} onChange={(event) => {this.reflectionBoxUpdate(event); this.handleAxisChange(event)}} disabled={this.props.disableOnBuild} value={this.state.axis}>
+                    <select className="widthHeight dropbox" style={{width: "10vh"}} onChange={(event) => {this.reflectionBoxUpdate(event); this.handleAxisChange(event)}} disabled={this.props.disableOnBuild} value={this.state.axis}>
                         <option value="xAxis">X Axis</option>
                         <option value="yAxis">Y Axis</option>
                         <option value="x">X=</option>
@@ -230,7 +230,7 @@ class DisplayQueue extends React.Component {
                         {this.buildOptions("relection")}
                     </select>
                     {/* <input className="widthHeight" type="number" name="x/yValue" min="-20" max="20" defaultValue="0" hidden={this.state.reflectionBox}></input> */}
-                    <button className="widthHeight" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Reflect", "y", null, [this.state.reflectionBox, this.state.xynum])}>Add</button>
+                    <button className="widthHeight btnAdd" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Reflect", "y", null, [this.state.reflectionBox, this.state.xynum])}>Add</button>
                 </div>
             )
         }
@@ -244,7 +244,7 @@ class DisplayQueue extends React.Component {
                     {/* <input type="button" className="buttons btnCancel" value=" " disabled={this.props.disableOnBuild}></input>
                     <input type="button" className="buttons btnExecute" value=" " disabled={this.props.disableOnBuild}></input>
                     <br/> */}
-                    <select className="dropdownStrategy" style={{ color: this.props.headerFontColor }} onChange={this.interfaceUpdate} disabled={this.props.disableOnBuild}>
+                    <select className="dropdownStrategy" style={{ color: this.props.headerFontColor}} onChange={this.interfaceUpdate} disabled={this.props.disableOnBuild}>
                         <option>Select Transformation</option>
                         <option value="Translation">Translation</option>
                         <option value="Rotation">Rotation</option>

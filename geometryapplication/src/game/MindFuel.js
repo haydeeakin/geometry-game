@@ -14,6 +14,7 @@ class MindFuel extends Component {
     this.widthPerSquare = this.canvasWidth / this.squareCount;
     this.heightPerSquare = this.canvasHeight / this.squareCount;
     this.pointRadius = 8;
+    
   }
 
   state = {
@@ -25,7 +26,7 @@ class MindFuel extends Component {
     ],
     hideTransform: false,
     disableBuild: true,
-    singleMove: true,
+    // singleMove: true,
     greyScale: 100,
     headerColor: "lightgrey",
     strategyMessage: "For your experiment how Transformation works based on Selecting a value from dropdown list provided.",
@@ -76,7 +77,7 @@ class MindFuel extends Component {
     ctx.closePath();
     
     let triangleGradient = ctx.createLinearGradient(this.canvasWidth  / 2, pixelPoint0[1], this.canvasWidth / 2, pixelPoint2[1]);
-    triangleGradient.addColorStop(0, "purple");
+    triangleGradient.addColorStop(0, "rgb(255, 250, 177)");
     triangleGradient.addColorStop(1, "black");
     ctx.fillStyle = triangleGradient;
     ctx.fill();
@@ -97,7 +98,7 @@ class MindFuel extends Component {
 
   drawCanvasTemplate = () => {
     const ctx = this.canvas.getContext("2d");
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "rgb(255, 250, 177)";
     ctx.font = "17px Arial";
     let lineWidth = 1;
     ctx.textAlign = "center";
@@ -222,7 +223,7 @@ class MindFuel extends Component {
   singletoMultiple = (event) => {
     if (event.target.value === "multiple") {
       this.setState({
-        singleMove: false,
+        // singleMove: false,
         hideTransform: false,
         disableBuild: true,
         headerColor: "lightgrey",
@@ -243,7 +244,7 @@ class MindFuel extends Component {
       this.setState({
         hideTransform: true,
         disableBuild: false,
-        headerColor: "purple",
+        headerColor: "rgb(255, 250, 177)",
         strategyMessage: `Please proceed to the RIGHT to "Build Your Strategy". For example: You can select different types of transformation and EXECUTE them all at once.`,
         greyScale: 0,
         points: [
@@ -305,6 +306,7 @@ class MindFuel extends Component {
       <div >
         <div className="banner">
           
+          {/* <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2> */}
           <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
         </div>
         {/* <div>
@@ -321,13 +323,13 @@ class MindFuel extends Component {
           {/* <Queue id="queue"/> */}
           {/* <Transformation singleMove={true}/> */}
           <div id="transformation" style={{backgroundColor:"black"}} >
-            <h1 style={{ color: "blue", marginBottom: 10 }}>Experiment Transformation</h1><br />
+            <h1 style={{ color: "rgb(255, 250, 177)", marginBottom: 10 }}>Experiment Transformation</h1><br />
             <select className="transformSelector" onChange={this.singletoMultiple}>
               <option value="multiple">Multiple Moves</option>
               <option value="strategy">Strategy</option>
             </select>
             <br></br><br></br>
-            <h3 style={{ color: "blue", height: 90, textAlign: "left", marginLeft: 20 }}>{this.state.strategyMessage}
+            <h3 style={{ color: "rgb(255, 250, 177)", height: 90, textAlign: "left", marginLeft: 20 }}>{this.state.strategyMessage}
             </h3><br />
             <div  style={{ marginTop: 20 }} hidden={this.state.hideTransform} >
               <input type="button" className="buttons btnUp" value=" " onClick={() => {
