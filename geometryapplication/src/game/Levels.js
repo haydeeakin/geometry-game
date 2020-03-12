@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
-// import Queue from "./queue";
-import DisplayQueue from "./queue";
+import LevelQueue from "./levelQueue";
 import "./transformation.css"
 // import {Login} from '../routes/Login'
 
-class MindFuel extends Component {
+class Levels extends Component {
 
   constructor() {
     super();
@@ -24,13 +23,9 @@ class MindFuel extends Component {
       [4, 2],
       [4, 5]
     ],
-    hideTransform: false,
-    disableBuild: true,
-    // singleMove: true,
-    greyScale: 100,
-    headerColor: "lightgrey",
-    strategyMessage: "For your experiment how Transformation works based on Selecting a value from dropdown list provided.",
-    upnum: 1, downnum: 1, rightnum: 1, leftnum: 1, degreeCounter: 90, degreeClock: 90
+
+    headerColor: "rgb(255, 250, 177)",
+    strategyMessage: "Choose a level of challenges from the dropdown menu",
   };
   changePointsStrategy = (points) => {
     this.setState({
@@ -220,87 +215,7 @@ class MindFuel extends Component {
     }
     return true;
   };
-  singletoMultiple = (event) => {
-    if (event.target.value === "multiple") {
-      this.setState({
-        // singleMove: false,
-        hideTransform: false,
-        disableBuild: true,
-        headerColor: "lightgrey",
-        strategyMessage: "For your experiment how Transformation works based on Selecting a value from dropdown list provided.",
-        greyScale: 100,
-        points: [
-          [2, 2],
-          [4, 2],
-          [4, 5]
-        ],
-        upnum: 1,
-        downnum: 1,
-        leftnum: 1,
-        rightnum: 1,
-      })
-    } 
-    else {
-      this.setState({
-        hideTransform: true,
-        disableBuild: false,
-        headerColor: "rgb(255, 250, 177)",
-        strategyMessage: `Please proceed to the RIGHT to "Build Your Strategy". For example: You can select different types of transformation and EXECUTE them all at once.`,
-        greyScale: 0,
-        points: [
-          [2, 2],
-          [4, 2],
-          [4, 5]
-        ],
-      })
-    }
-
-  }
-  handleKeyDown = (event) => { // to prevent user enter a number
-    event.preventDefault();
-    return false;
-  }
-
-  handleRotationCounter = (event) => {
-    this.setState({
-      degreeCounter: event.target.value
-    })
-  }
-  handleRotationClock = (event) => {
-    this.setState({
-      degreeClock: event.target.value
-    })
-  }
-
-  handleUp = (event) => {
-    this.setState({
-      upnum: event.target.value
-    })
-  }
-  handleDown = (event) => {
-    this.setState({
-      downnum: event.target.value
-    })
-  }
-  handleLeft = (event) => {
-    this.setState({
-      leftnum: event.target.value
-    })
-  }
-  handleRight = (event) => {
-    this.setState({
-      rightnum: event.target.value
-    })
-  }
-  buildOptions() {
-    let numList = [];
-
-    for (let i = 1; i <= 20; i++) {
-      numList.push(<option key={i} value={i} >{i}</option>)
-    }
-
-    return numList;
-  }
+ 
   render() {
     return (
       <div >
@@ -323,88 +238,19 @@ class MindFuel extends Component {
           {/* <Queue id="queue"/> */}
           {/* <Transformation singleMove={true}/> */}
           <div id="transformation" style={{backgroundColor:"black"}} >
-            <h1 style={{ color: "rgb(255, 250, 177)", marginBottom: 10 }}>Experiment Transformation</h1><br />
-            <select className="transformSelector" onChange={this.singletoMultiple}>
-              <option value="multiple">Multiple Moves</option>
-              <option value="strategy">Strategy</option>
-            </select>
-            <br></br><br></br>
+            <h1 style={{ color: "rgb(255, 250, 177)", marginBottom: 10 }}>Challenges</h1><br />
             <h3 style={{ color: "rgb(255, 250, 177)", height: 90, textAlign: "left", marginLeft: 20 }}>{this.state.strategyMessage}
             </h3><br />
-            <div  style={{ marginTop: 20 }} hidden={this.state.hideTransform} >
-              <input type="button" className="buttons btnUp" value=" " onClick={() => {
-                this.translate("up");
-              }}></input>
-              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="upnum" value={this.state.upnum} /> */}
-              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleUp} value={this.state.upnum}>
-                {this.buildOptions()}
-              </select>
+            <select className="transformSelector levelSelector">
+              <option value="level1">Level 1</option>
+              <option value="level2">Level 2</option>
+            </select>
+            <br></br><br></br>
+            
+            {/* <div  style={{ marginTop: 20 }} hidden={this.state.hideTransform} >
+          
               <br></br>
-
-              <input type="button" className="buttons btnDown" value=" " onClick={() => {
-                this.translate("down");
-              }}></input>
-              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="downnum" value={this.state.downnum} /> */}
-              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleDown} value={this.state.downnum}>
-                {this.buildOptions()}
-              </select>
-              <br></br>
-
-              <input type="button" className="buttons btnLeft" value=" " onClick={() => {
-                this.translate("left");
-              }}></input>
-              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="leftnum" value={this.state.leftnum} /> */}
-              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleLeft} value={this.state.leftnum}>
-                {this.buildOptions()}
-              </select>
-              <br></br>
-
-              <input type="button" className="buttons btnRight" value=" " onClick={() => {
-                this.translate("right");
-              }}></input>
-              {/* <input disabled={this.state.singleMove} onChange={this.handleChange} onKeyDown={this.handleKeyDown} min={0} max={20} type="number" className="numInput" name="rightnum" value={this.state.rightnum} /> */}
-              <select className="degrees" disabled={this.state.singleMove} onChange={this.handleRight} value={this.state.rightnum}>
-                {this.buildOptions()}
-              </select>
-              <br></br>
-
-              <input type="button" className="buttons btnCounterClock" value=" " onClick={() => {
-                this.rotation("counterClockwise");
-              }}></input>
-              <select disabled={this.state.singleMove} value={this.state.degreeCounter} className="degrees" onChange={this.handleRotationCounter}>
-                {/* <option value="0">0&deg;</option> */}
-                <option value="90">90&deg;</option>
-                <option value="180">180&deg;</option>
-                <option value="270">270&deg;</option>
-              </select>
-
-              <br></br>
-              <input type="button" className="buttons btnClock" value=" " onClick={() => {
-                this.rotation("clockwise");
-              }}></input>
-              <select disabled={this.state.singleMove} value={this.state.degreeClock} className="degrees" onChange={this.handleRotationClock}>
-                {/* <option value="0">0&deg;</option> */}
-                <option value="90">90&deg;</option>
-                <option value="180">180&deg;</option>
-                <option value="270">270&deg;</option>
-              </select>
-
-              <br></br>
-
-              <input type="button" className="buttons btnReflecX" value=" " onClick={() => {
-                this.reflection("x");
-              }}></input>
-              {/* <input disabled style={{border:0}} type="text" className="numInput" name="numInput" defaultValue="Reflection-X" /> */}
-              <label className="numInput">Reflection-X</label>
-              <br></br>
-
-              <input type="button" className="buttons btnReflecY" value=" " onClick={() => {
-                this.reflection("y");
-              }}></input>
-              {/* <input disabled style={{border:0}} type="text" className="numInput" name="numInput" defaultValue="Reflection-Y" /> */}
-              <label className="numInput">Reflection-Y</label>
-              <br></br>
-            </div>
+            </div> */}
           </div >
           <canvas style={{backgroundColor:"black"}}
             className="canvas"
@@ -416,8 +262,8 @@ class MindFuel extends Component {
             width={this.canvasWidth}
             height={this.canvasHeight}
           />
-          
-          <DisplayQueue changePoints={this.changePointsStrategy} points={this.state.points} disableOnBuild={this.state.disableBuild} headerFontColor={this.state.headerColor} greyScaleButton={this.state.greyScale} />
+          {/* <Action /> */}
+          <LevelQueue levelChangePoints={this.changePointsStrategy} levelPoints={this.state.points} levelHeaderFontColor={this.state.headerColor} />
         </div>
 
       </div>
@@ -425,4 +271,4 @@ class MindFuel extends Component {
   }
 }
 
-export default MindFuel;
+export default Levels;

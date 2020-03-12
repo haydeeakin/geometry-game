@@ -3,7 +3,7 @@ import "./queue.css"
 import ListItem from "./listItem"
 import { translation, rotation, reflection } from "./game";
 
-class DisplayQueue extends React.Component {
+class LevelQueue extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,8 +17,8 @@ class DisplayQueue extends React.Component {
             xynum: 0,
             line: [1,0,0],
             axis: "xAxis",
-            points: props.points,
-            changePoints: props.changePoints,
+            points: props.levelPoints,
+            changePoints: props.levelChangePoints,
             message: "",
         }
     }
@@ -187,50 +187,50 @@ class DisplayQueue extends React.Component {
         if (this.state.interface === "Translation") {
             return (
                 <div>
-                    <select className="widthHeight dropbox" onChange={this.handleChangeTranslate} value={this.state.translate} disabled={this.props.disableOnBuild} >
+                    <select className="widthHeight dropbox" onChange={this.handleChangeTranslate} value={this.state.translate} >
                         <option value="Up">Up</option>
                         <option value="Down">Down</option>
                         <option value="Left">Left</option>
                         <option value="Right">Right</option>
                     </select>
-                    {/* <input className="widthHeight" disabled={this.props.disableOnBuild} type="number" name="x/yValue" min="-20" max="20" defaultValue="0"></input> */}
-                    <select className="widthHeight" onChange={this.handleChangeNum} value={this.state.num} disabled={this.props.disableOnBuild}>
+                    {/* <input className="widthHeight"   type="number" name="x/yValue" min="-20" max="20" defaultValue="0"></input> */}
+                    <select className="widthHeight" onChange={this.handleChangeNum} value={this.state.num}  >
                         {this.buildOptions("translate")}
                     </select>
-                    <button className="widthHeight btnAdd" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Translate",this.state.translate, this.state.num)}>Add</button>
+                    <button className="widthHeight btnAdd"   onClick={() => this.handleAdd("Translate",this.state.translate, this.state.num)}>Add</button>
                 </div>
             )
         }
         if (this.state.interface === "Rotation") {
             return (
                 <div>
-                    <select className="widthHeight dropbox" disabled={this.props.disableOnBuild} onChange={this.handleChangeRotate}>
+                    <select className="widthHeight dropbox"   onChange={this.handleChangeRotate}>
                         <option value="Clockwise">Clockwise</option>
                         <option value="Counter-Clock">Counter-Clock</option>
                     </select>
-                    <select className="widthHeight" disabled={this.props.disableOnBuild} onChange={this.handleChangeDegree}>
+                    <select className="widthHeight"   onChange={this.handleChangeDegree}>
                         <option value="90">90&deg;</option>
                         <option value="180">180&deg;</option>
                         <option value="270">270&deg;</option>
                     </select>
-                    <button className="widthHeight btnAdd" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Rotate",this.state.rotate, this.state.degree)}>Add</button>
+                    <button className="widthHeight btnAdd"   onClick={() => this.handleAdd("Rotate",this.state.rotate, this.state.degree)}>Add</button>
                 </div>
             )
         }
         if (this.state.interface === "Reflection") {
             return (
                 <div>
-                    <select className="widthHeight dropbox" style={{width: "10vh"}} onChange={(event) => {this.reflectionBoxUpdate(event); this.handleAxisChange(event)}} disabled={this.props.disableOnBuild} value={this.state.axis}>
+                    <select className="widthHeight dropbox" style={{width: "10vh"}} onChange={(event) => {this.reflectionBoxUpdate(event); this.handleAxisChange(event)}}   value={this.state.axis}>
                         <option value="xAxis">X Axis</option>
                         <option value="yAxis">Y Axis</option>
                         <option value="x">X=</option>
                         <option value="y">Y=</option>
                     </select>
-                    <select disabled={this.props.disableOnBuild} value={this.state.xynum} hidden={this.state.reflectionBox} onChange={this.handleChangeXynum}>
+                    <select   value={this.state.xynum} hidden={this.state.reflectionBox} onChange={this.handleChangeXynum}>
                         {this.buildOptions("relection")}
                     </select>
                     {/* <input className="widthHeight" type="number" name="x/yValue" min="-20" max="20" defaultValue="0" hidden={this.state.reflectionBox}></input> */}
-                    <button className="widthHeight btnAdd" disabled={this.props.disableOnBuild} onClick={() => this.handleAdd("Reflect", "y", null, [this.state.reflectionBox, this.state.xynum])}>Add</button>
+                    <button className="widthHeight btnAdd"   onClick={() => this.handleAdd("Reflect", "y", null, [this.state.reflectionBox, this.state.xynum])}>Add</button>
                 </div>
             )
         }
@@ -238,10 +238,10 @@ class DisplayQueue extends React.Component {
     render() {
         return (
             <div className="buildStrategy">
-                <div style={{ textAlign: "center", color: this.props.headerFontColor, backgroundColor:"black" }} >
-                    <h1 style={{ marginBottom: 10, color: this.props.headerFontColor }}>Build your Strategy</h1><br />
+                <div style={{ textAlign: "center", color: this.props.levelHeaderFontColor, backgroundColor:"black" }} >
+                    <h1 style={{ marginBottom: 10, color: this.props.levelHeaderFontColor }}>Build your Strategy</h1><br />
 
-                    <select className="dropdownStrategy" style={{ color: this.props.headerFontColor}} onChange={this.interfaceUpdate} disabled={this.props.disableOnBuild}>
+                    <select className="dropdownStrategy" style={{ color: this.props.levelHeaderFontColor}} onChange={this.interfaceUpdate}  >
                         <option>Select Transformation</option>
                         <option value="Translation">Translation</option>
                         <option value="Rotation">Rotation</option>
@@ -251,23 +251,23 @@ class DisplayQueue extends React.Component {
                         {this.newActionSelector()}
                     </div>
                     
-                    <div className="actionList" style={{ backgroundColor: this.props.headerFontColor }}>
+                    <div className="actionList" style={{ backgroundColor: this.props.levelHeaderFontColor }}>
                         {this.state.queue.map((current, index) => {
                             return <ListItem key={index} typeTransform={current.transform} type={current.type} value={current.value} location={current.location} /> 
                         })}
                     </div>
                     <p>{this.state.message}</p>
                     <br />
-                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnCancel" value=" " onClick={this.handleClearAll} disabled={this.props.disableOnBuild}></input>
-                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnExecute" value=" " onClick={this.handleExecute} disabled={this.props.disableOnBuild}></input>
-                    <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnUndo" value=" " onClick={this.handleUndo} disabled={this.props.disableOnBuild}></input>
+                    <input type="button" className="buttons btnCancel" value=" " onClick={this.handleClearAll}  ></input>
+                    <input type="button" className="buttons btnExecute" value=" " onClick={this.handleExecute}  ></input>
+                    <input type="button" className="buttons btnUndo" value=" " onClick={this.handleUndo}  ></input>
                     <br />
                 </div>
             </div>
         )
     }
 }
-class Transformation {
+class LevelTransformation {
     constructor(validCoordinates, points){
         this.queue = [];
         this.validCoordinates = validCoordinates;
@@ -349,4 +349,4 @@ class Transformation {
 
 }
 
-export default DisplayQueue;
+export default LevelQueue;
