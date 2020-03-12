@@ -19,6 +19,8 @@ class App extends React.Component {
       this.setState({
         page: target
       })
+    } else {
+      alert("Wrong username or password. Please try again!")
     }
   }
   pageState = () => {

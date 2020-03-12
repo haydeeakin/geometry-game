@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
 import LevelQueue from "./levelQueue";
-import "./transformation.css"
+import "./mindfuel.css"
 // import {Login} from '../routes/Login'
 
 class Levels extends Component {
