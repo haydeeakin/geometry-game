@@ -1,12 +1,9 @@
 import React from "react";
 import MindFuel from "./game/MindFuel";
-<<<<<<< HEAD
 import Levels from "./game/Levels";
 
-=======
 import Login from "./game/login"
 import {validate} from "./fetch"
->>>>>>> 995af50389ea23232ebb99cce169248c8415c127
 import "./App.css";
 
 class App extends React.Component {
@@ -37,7 +34,6 @@ class App extends React.Component {
       return (
     
     <div className="App">
-<<<<<<< HEAD
       {/* <MindFuel /> */}
       {/* <Levels /> */}
     
@@ -53,10 +49,6 @@ class App extends React.Component {
 
 
 
-=======
-      <nav></nav>
-        {this.pageState()}
->>>>>>> 995af50389ea23232ebb99cce169248c8415c127
     </div>
   );
   }
