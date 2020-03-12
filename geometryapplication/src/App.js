@@ -1,7 +1,7 @@
 import React from "react";
 import MindFuel from "./game/MindFuel";
 import Levels from "./game/Levels";
-
+import Home from "./game/home";
 import Login from "./game/login"
 import {validate} from "./fetch"
 import "./App.css";
@@ -25,9 +25,10 @@ class App extends React.Component {
     if(this.state.page === 'login'){
       return <Login submit={this.changePage}/>
     }
-    if(this.state.page === 'game'){
-      return <MindFuel/>
+    if(this.state.page === 'home'){
+      return <Home/>
     }
+
   }
 
   render(){
@@ -36,16 +37,19 @@ class App extends React.Component {
     <div className="App">
       {/* <MindFuel /> */}
       {/* <Levels /> */}
-    
+          {/* <div className="banner">
+            <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
+          </div> */}
+          {this.pageState()}
 
-      <div className="banner">
+      {/* <div className="banner">
         <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
       </div>
       <div style={{ textAlign: "left", backgroundColor: "black" }} >
         <button className="navbar">Experiment</button>
         <button className="navbar">Challenges</button>
         <button className="navbar">Sign Out</button>
-      </div>
+      </div> */}
 
 
 
