@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { translation, rotation, reflection } from "./game";
 // import Queue from "./queue";
 import DisplayQueue from "./queue";
-import "./transformation.css"
+import "./mindfuel.css"
 // import {Login} from '../routes/Login'
 
 class MindFuel extends Component {
