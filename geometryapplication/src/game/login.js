@@ -25,6 +25,8 @@ class Login extends React.Component {
                 Password: <input type="password" name="password"ref={this.passowrdRef} value={this.state.password} onChange={this.handleChange}></input>
                 <br/>
                 <button onClick={() => this.props.submit('game',this.state.user,this.state.password)}>Submit</button>
+                <br/>
+                <p>{this.props.message}</p>
             </div>
 
 
