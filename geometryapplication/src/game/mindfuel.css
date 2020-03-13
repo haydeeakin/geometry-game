@@ -74,11 +74,15 @@
     
 }
 .navbar {
-    height: 40px;
-    width: 250px;
-    font-size: 25px;
+    height: 30px;
+    width: 200px;
+    font-size: 21px;
     font-weight: bold;
     margin-right: 5px;
+}
+
+.canvas {
+    height: 90vh;
 }
 /* .GameArea {
     background-image: url('./Images/backgroundforChallenges.JPG'); 

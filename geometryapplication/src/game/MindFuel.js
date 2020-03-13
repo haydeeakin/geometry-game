@@ -304,20 +304,16 @@ class MindFuel extends Component {
   render() {
     return (
       <div >
-        <div className="banner">
-          
-          {/* <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2> */}
+        {/* <div className="banner">
           <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
         </div>
-        {/* <div>
-          <Login />
-        </div> */}
+      
         <div style={{textAlign:"left"}} hidden>
           <button className="navbar">Experiment</button>
           <button className="navbar">Challenges</button>
-          {/* <button className="navbar">Sign In</button> */}
+          
           <button className="navbar">Sign Out</button>
-        </div>
+        </div> */}
        
         <div className="GameArea" style={{backgroundColor:"black"}} >
           {/* <Queue id="queue"/> */}
