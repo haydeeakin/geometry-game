@@ -219,24 +219,11 @@ class Levels extends Component {
   render() {
     return (
       <div >
-        <div className="banner">
-          
-          {/* <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2> */}
+        {/* <div className="banner">
           <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
-        </div>
-        {/* <div>
-          <Login />
         </div> */}
-        <div style={{textAlign:"left"}} hidden>
-          <button className="navbar">Experiment</button>
-          <button className="navbar">Challenges</button>
-          {/* <button className="navbar">Sign In</button> */}
-          <button className="navbar">Sign Out</button>
-        </div>
        
         <div className="GameArea" style={{backgroundColor:"black"}} >
-          {/* <Queue id="queue"/> */}
-          {/* <Transformation singleMove={true}/> */}
           <div id="transformation" style={{backgroundColor:"black"}} >
             <h1 style={{ color: "rgb(255, 250, 177)", marginBottom: 10 }}>Challenges</h1><br />
             <h3 style={{ color: "rgb(255, 250, 177)", height: 90, textAlign: "left", marginLeft: 20 }}>{this.state.strategyMessage}
@@ -246,11 +233,6 @@ class Levels extends Component {
               <option value="level2">Level 2</option>
             </select>
             <br></br><br></br>
-            
-            {/* <div  style={{ marginTop: 20 }} hidden={this.state.hideTransform} >
-          
-              <br></br>
-            </div> */}
           </div >
           <canvas style={{backgroundColor:"black"}}
             className="canvas"
@@ -262,7 +244,6 @@ class Levels extends Component {
             width={this.canvasWidth}
             height={this.canvasHeight}
           />
-          {/* <Action /> */}
           <LevelQueue levelChangePoints={this.changePointsStrategy} levelPoints={this.state.points} levelHeaderFontColor={this.state.headerColor} />
         </div>
 

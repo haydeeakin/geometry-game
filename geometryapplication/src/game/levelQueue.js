@@ -256,7 +256,7 @@ class LevelQueue extends React.Component {
                             return <ListItem key={index} typeTransform={current.transform} type={current.type} value={current.value} location={current.location} /> 
                         })}
                     </div>
-                    <p>{this.state.message}</p>
+                    <p className="queueMessage">{this.state.message}</p>
                     <br />
                     <input type="button" className="buttons btnCancel" value=" " onClick={this.handleClearAll}  ></input>
                     <input type="button" className="buttons btnExecute" value=" " onClick={this.handleExecute}  ></input>

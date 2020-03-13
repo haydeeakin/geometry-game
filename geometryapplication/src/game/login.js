@@ -17,9 +17,9 @@ class Login extends React.Component {
     render() {
         return (
             <div style={{ color: "white" }}>
-                <div className="banner">
+                {/* <div className="banner">
                     <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
-                </div>
+                </div> */}
                 <h1>Login</h1>
                 Username: <input type="text" name="user" ref={this.nameRef} value={this.state.user} onChange={this.handleChange}></input>
                 Password: <input type="password" name="password"ref={this.passowrdRef} value={this.state.password} onChange={this.handleChange}></input>

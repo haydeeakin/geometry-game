@@ -39,9 +39,9 @@ class App extends React.Component {
     <div className="App">
       {/* <MindFuel /> */}
       {/* <Levels /> */}
-          {/* <div className="banner">
+          <div className="banner">
             <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
-          </div> */}
+          </div>
           {this.pageState()}
 
       {/* <div className="banner">
