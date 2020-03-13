@@ -80,9 +80,17 @@
     font-weight: bold;
     margin-right: 5px;
 }
-
+.navbarClicked {
+    height: 30px;
+    width: 200px;
+    font-size: 21px;
+    font-weight: bold;
+    margin-right: 5px;
+    background-color: teal;
+    color: white;
+}
 .canvas {
-    height: 90vh;
+    height: 85vh;
 }
 /* .GameArea {
     background-image: url('./Images/backgroundforChallenges.JPG'); 

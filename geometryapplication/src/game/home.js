@@ -2,7 +2,7 @@ import React from "react";
 import MindFuel from "./MindFuel";
 // import MindFuel from "./game/MindFuel";
 // import Levels from "./game/Levels";
-
+import './queue.css'
 
 
 class Home extends React.Component {
@@ -34,10 +34,10 @@ class Home extends React.Component {
       <div className="banner">
         <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
       </div>
-      <div style={{ textAlign: "left", backgroundColor: "black" }} >
-        <button className="navbar" name= "btnExperiment" onClick ={this.handleClick} >Experiment</button>
-        <button className="navbar" name= "btnChallenges">Challenges</button>
-        <button className="navbar" name= "btnSignOut">Sign Out</button>
+      <div style={{backgroundColor: "black", textAlign:"center" }} >
+        <button className={this.state.whichButtonClicked==="btnExperiment"? "navbarClicked":"navbar"} name= "btnExperiment" onClick ={this.handleClick} >Experiment</button>
+        <button className={this.state.whichButtonClicked==="btnChallenges"? "navbarClicked":"navbar"} name= "btnChallenges">Challenges</button>
+        <button className={this.state.whichButtonClicked==="btnSignOut"? "navbarClicked":"navbar"} name= "btnSignOut">Sign Out</button>
       </div>
       {this.displayComponent()}
     </div>

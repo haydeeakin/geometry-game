@@ -14,23 +14,29 @@ h1 {
 }
 .btnExecute {
     background: url(./Images/play-circle.svg) no-repeat;
+    /* margin-top: 15px; */
 }
 .btnCancel {
     background: url(./Images/x-circle.svg) no-repeat;
+    /* margin-top: 10px; */
    
 }
 .btnUndo {
     background: url(./Images/undo.svg) no-repeat;
-   
+    /* margin-top: 10px; */
 }
-
+.queueMessage {
+    height: 10vh;
+    background-color: grey;
+    color: white;
+}
 .actionList {
-    height: 68%;
+    height: 50%;
     /* width: 450px; */
     margin-top: 10px;
     /* border: 1px solid blue; */
     background-color: "lightskyblue";
-    filter: drop-shadow(22px 16px 2px grey);
+    /* filter: drop-shadow(22px 16px 2px grey); */
     /* background: url(./Images/actionList.jpg) no-repeat; */
 }
 .dropdownStrategy {

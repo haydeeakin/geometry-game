@@ -391,15 +391,16 @@ class MindFuel extends Component {
                 this.reflection("x");
               }}></input>
               {/* <input disabled style={{border:0}} type="text" className="numInput" name="numInput" defaultValue="Reflection-X" /> */}
-              <label className="numInput">Reflection-X</label>
-              <br></br>
+              {/* <label className="numInput">Reflection-X</label> */}
+              
+              {/* <br></br> */}
 
-              <input type="button" className="buttons btnReflecY" value=" " onClick={() => {
+              <input type="button" style={{marginLeft: '5vh'}} className="buttons btnReflecY" value=" " onClick={() => {
                 this.reflection("y");
               }}></input>
               {/* <input disabled style={{border:0}} type="text" className="numInput" name="numInput" defaultValue="Reflection-Y" /> */}
-              <label className="numInput">Reflection-Y</label>
-              <br></br>
+              {/* <label className="numInput">Reflection-Y</label> */}
+              {/* <br></br> */}
             </div>
           </div >
           <canvas style={{backgroundColor:"black"}}

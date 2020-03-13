@@ -256,7 +256,7 @@ class DisplayQueue extends React.Component {
                             return <ListItem key={index} typeTransform={current.transform} type={current.type} value={current.value} location={current.location} /> 
                         })}
                     </div>
-                    <p>{this.state.message}</p>
+                    <p className="queueMessage">{this.state.message}</p>
                     <br />
                     <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnCancel" value=" " onClick={this.handleClearAll} disabled={this.props.disableOnBuild}></input>
                     <input style={{ filter: `grayscale(${this.props.greyScaleButton})` }} type="button" className="buttons btnExecute" value=" " onClick={this.handleExecute} disabled={this.props.disableOnBuild}></input>
