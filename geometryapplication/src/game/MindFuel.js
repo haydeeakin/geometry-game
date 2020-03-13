@@ -306,9 +306,9 @@ class MindFuel extends Component {
       <div >
         {/* <div className="banner">
           <h2 className="banner header" ><span style={{ filter: "drop-shadow(0px 30px 2px yellow)" }}>Welcome to Transformation Game</span></h2>
-        </div>
+        </div> */}
       
-        <div style={{textAlign:"left"}} hidden>
+        {/* <div style={{textAlign:"left"}} hidden>
           <button className="navbar">Experiment</button>
           <button className="navbar">Challenges</button>
           

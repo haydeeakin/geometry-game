@@ -1,0 +1,29 @@
+.login {
+    text-align: center;
+    width: 50vh;
+    height: 32vh;
+    background-color:lightgray;
+    
+    color: black;
+    margin-left: 80vh;
+    margin-top: 10vh;
+    
+}
+.txtLogin {
+    height: 3vh;
+    font-size: 2vh;
+    font-weight: bold;
+}
+.lblLogin {
+    height: 3vh;
+    font-size: 3vh;
+}
+.btnSubmit {
+    height: 5vh;
+    width: 20vh;
+    font-size: 2vh;
+    font-weight: bold;
+    margin-top: 1vh;
+    float: right;
+    margin-right: 4.3vh;
+}
